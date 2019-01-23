@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -65,7 +65,17 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
+
+                @if($errors->has('active'))
+                <div class="alert alert-danger alert-dismissible fade show text-center">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>    
+                    {{ $errors->first('active')}}
+                </div>
+                @endif
             </div>
         </div>
     </div>
