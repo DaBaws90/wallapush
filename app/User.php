@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Transaccion;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -27,4 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function transactions(){
+        return $this->hasMany(Transaccion::class, 'id_comprador');
+    }
 }

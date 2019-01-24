@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.addView');
     }
 
     /**
@@ -81,6 +81,31 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = User::destroy($id);
+        if ($destroy){
+            return redirect()->route('users.index')->with('message', ['success' , 'Usuario eliminado correctamente']);
+        }
+        else{
+            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo eliminar el usuario']);
+        }
+    }
+
+    /**
+     * Disables the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function disable($id)
+    {
+        $user = User::find($id);
+        // $user->actived = false;
+        $user->update($user->actived = false);
+        if($user){
+            return redirect()->route('users.index')->with('message', ['success' , 'Usuario deshabilitado correctamente']);
+        }
+        else{
+            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar el usuario']);
+        }
     }
 }

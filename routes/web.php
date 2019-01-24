@@ -19,6 +19,7 @@ Route::get('profile', function () {
 
 
 // User routes
+Route::post('/users/{id}/disable', 'UserController@disable')->name('disableUser');
 Route::resource('users','UserController');
 
 
