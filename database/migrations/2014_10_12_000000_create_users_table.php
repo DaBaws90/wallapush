@@ -20,10 +20,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('user');//admin|user
-            $table->string('localidad')->nullable();
+            $table->string('localidad');
             $table->float('saldo')->default(25);
-            $table->boolean('actived')->default(false);
-            // $table->string('codigo_confirmacion')->nullable();
+            $table->boolean('actived')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
