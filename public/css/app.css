@@ -1,5 +1,33 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+.addFormAnuncio, .addFormCategoria {
+    margin-top: 3em;
+}
+
+.addFormCategoria .card-body, .addFormAnuncio .card-body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.form-group {
+    padding: 0 20px 0 20px;
+    margin: 0;
+}
+
+.form:first-child {
+    padding-top: 20px;
+}
+
+.form .btn-anuncio, .btn-categoria {
+    margin-bottom: 20px;
+    width: 20%;
+}
+
+.alert > p {
+    margin: 0;
+}
+
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

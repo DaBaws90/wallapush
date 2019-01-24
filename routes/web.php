@@ -31,3 +31,14 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
+
+Route::group(['middleware' => 'auth'], function() {
+
+    // ANUNCIOS
+    Route::get('/anuncios/add', 'AnuncioController@addAnuncio')->name('addAnuncio');
+    Route::post('/anuncios/store', 'AnuncioController@storeAnuncio')->name('storeAnuncio');
+
+    Route::get('/anuncios/categorias', 'AnuncioController@categorias')->name('categorias');
+    Route::post('anuncios/storeCategoria', 'AnuncioController@storeCategoria')->name('storeCategoria');
+});
