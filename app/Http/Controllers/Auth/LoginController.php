@@ -61,7 +61,7 @@ class LoginController extends Controller
             $user = $this->guard()->getLastAttempted();
 
             // Make sure the user is active
-            if ($user->active && $this->attemptLogin($request) && $user->email_verified_at != null) {
+            if ($user->actived && $this->attemptLogin($request) && $user->email_verified_at != null) {
                 // Send the normal successful login response
                 return $this->sendLoginResponse($request);
             } else {

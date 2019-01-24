@@ -17,11 +17,13 @@ Route::get('profile', function () {
     // Only verified users may enter...
 })->middleware('verified');
 
+Route::group(['middleware' => 'auth'], function () {
+    
+    // User routes
+    Route::post('/users/{id}/disable', 'UserController@disable')->name('disableUser');
+    Route::resource('users','UserController');
 
-// User routes
-Route::post('/users/{id}/disable', 'UserController@disable')->name('disableUser');
-Route::resource('users','UserController');
-
+});
 
 // Home routes
 Route::get('/', function () {

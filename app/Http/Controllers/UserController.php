@@ -36,7 +36,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'localidad' => 'string|max:191'
+        ]);
+        $user = User::create($request->all());
+
+        if($user){
+            return redirect()->route('users.index')->with('message', ['success', 'Usuario creado correctamente']);
+        }
+        else{
+            return redirect()->route('users.index')->with('message', ['danger', 'No se pudo crar el usuario']);
+        }
     }
 
     /**
@@ -47,7 +60,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.details', compact('user'));
     }
 
     /**
