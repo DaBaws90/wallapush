@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('users.edit', compact('user', ['user' => User::find($id)]));
     }
 
     /**
@@ -95,9 +95,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = User::find($id);
         $destroy = User::destroy($id);
         if ($destroy){
-            return redirect()->route('users.index')->with('message', ['success' , 'Usuario eliminado correctamente']);
+            return redirect()->route('users.index')->with('message', ['success' , 'Usuario '.$user->name.' eliminado correctamente']);
         }
         else{
             return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo eliminar el usuario']);
@@ -113,10 +114,12 @@ class UserController extends Controller
     public function disable($id)
     {
         $user = User::find($id);
-        // $user->actived = false;
-        $user->update($user->actived = false);
+        $user->actived = false;
+        $user->update();
         if($user){
-            return redirect()->route('users.index')->with('message', ['success' , 'Usuario deshabilitado correctamente']);
+            return redirect()->route('users.index')->with(
+                'message', ['success' , 'Usuario ' .$user->name.' deshabilitado correctamente']
+            );
         }
         else{
             return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar el usuario']);

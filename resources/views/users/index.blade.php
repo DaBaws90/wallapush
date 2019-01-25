@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2 text-center">
+        <div class="col-md-10 offset-md-1 text-center">
             <h1 class="text-center text-muted mt-5 mb-5"> {{ __("Listado de usuarios") }} </h1>
             <div class="mb-4">
                 <a href="{{ route('users.create') }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
@@ -16,7 +16,7 @@
                         <th scope="col">Nombre</th>
                         <!-- <th scope="col">Email</th> -->
                         <th scope="col">Localidad</th>
-                        <!-- <th scope="col">Saldo</th> -->
+                        <th scope="col">Saldo</th>
                         <th scope="col">Habilitado</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -31,27 +31,36 @@
                         <td><input onchange="return alert('{{$user->id}}')" type="checkbox" name="id_list[]" value="{{ $user->id }}"></td>
                         <td>{{ $user->name }}</td>
                         <!-- <td>{{ $user->email }}</td> -->
-                        <td>{{ $user->localidad != null ? '$user->localidad' : '(No data)' }}</td>
-                        <!-- <td>{{ $user->saldo }}</td> -->
+                        <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>
+                        <td>{{ $user->saldo > 0 ? $user->saldo : 'Sin saldo' }}</td>
                         <td>{{ $user->actived ? 'Sí' : 'No'}}</td>
                         <td><a href="{{ route('users.show', $user->id) }}"><i class="fas fa-search"></i></a></td>
                         <td><a href="{{ route('users.edit', $user->id) }}"><i class="fas fa-user-edit"></i></a></td>
-                        <td><a href="{{ route('disableUser', ['id'=> $user->id]) }}"><i class="fas fa-times"></i></a></td>
+                        <td>
+                            <form action="{{ route('disableUser', $user->id) }}" method="POST">
+                                {{csrf_field()}}
+                                <button onclick="return confirm('Deshabilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
+                            </form>
+                            <!-- <a href="{{ route('disableUser', ['id'=> $user->id]) }}"><i class="fas fa-times"></i></a> -->
+                        </td>
                         <td>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                 {{csrf_field()}}
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button onclick="return confirm('Estás seguro?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
+                                <button onclick="return confirm('Eliminar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
                     @endif
-                </tbody>
+                <!-- </tbody> -->
                 @empty
-                <div class="alert alert-info text-muted text-center">
-                    {{ __("No hay registros") }}
-                </div>
+                    <tr>
+                        <td col="8">
+                            {{ __("No hay registros") }}
+                        </td>
+                    </tr>
                 @endforelse
+                </tbody>
             </table>
         </div>
     </div>
@@ -66,12 +75,5 @@
         </div>
     </div>
 </div>
-<script>
-$(document).ready(function() {
-    $('#example').DataTable({
-        'order':[[0,'desc']],
-        'stateSave':true
-    });
-} );
-</script>
+
 @endsection

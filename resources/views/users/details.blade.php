@@ -9,14 +9,14 @@
                     <h4 class="pt-3 pb-2">{{ __('Perfil del usuario :name', ['name' => $user->name]) }}</h4>
                 </div>
                 <div class="card-body">
-                    <small>{{ __('Localidad: :city', ['city' => $user->localidad != null ? $user->localidad : 'No hay información registrada'])}}</small>
+                    <p class="pt-3">{{ __('Localidad: :city', ['city' => $user->localidad != null ? $user->localidad : 'No hay información registrada'])}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <small class="text-muted">{{ __('Dirección de email :email', ['email' => $user->email])}}</small>
+                        <p class="text-muted pt-3">{{ __('Dirección de email: :email', ['email' => $user->email])}}</p>
                     </li>
                     <li class="list-group-item">
-                        <small class="text-muted"></small>
+                        <p class="text-muted pt-3">{{ __('Saldo disponible: :saldo €', ['saldo' => $user->saldo])}}</p>
                     </li>
                 </ul>
                 <div class="card-footer">

@@ -6,8 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Transaccion;
-use App\Anuncio;
+use App\transaccion;
+use App\anuncio;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -31,11 +31,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
-    public function transactions(){
-        return $this->hasMany(Transaccion::class, 'id_comprador');
+    public function transacciones(){
+        return $this->hasMany(transaccion::class, 'id_comprador');
     }
 
     public function anuncios(){
-        return $this->hasMany(Anuncio::class, 'id_vendedor');
+        return $this->hasMany(anuncio::class, 'id_vendedor');
     }
 }

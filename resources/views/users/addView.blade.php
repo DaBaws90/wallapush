@@ -3,10 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2 mt-5">
-            <div class="card">
-                <div class="card-header text-center">{{ __(('Añadir usuario')) }}</div>
-                    <div class="card-body">
+        <div class="col-md-10 offset-md-1 mt-5">
+            <div class="card border-primary">
+                <div class="card-header text-center border-primary">
+                    <h4 class="pt-3 pb-2">{{ __(('Añadir usuario')) }}</h4>
+                </div>
+                <div class="card-body">
 
                     <form action="" method="POST">
                         @csrf
@@ -14,7 +16,7 @@
                         <div class="form-group row mt-3">
                             <label class="col-md-2 col-form-label" for="name">Nombre</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" id="name" name="name"/>
+                                <input autofocus="true" class="form-control" type="text" id="name" name="name"/>
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback mt-1" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -60,8 +62,9 @@
                         </div>
 
                         <div class="form-group row mb-3 mt-4">
-                            <div class="col-md-6 offset-md-3 text-center">
-                                <button type="submit" class="btn btn-outline-primary">
+                            <div class="col-md-12 text-center">
+                                <a class="float-left pt-2" href="{{ route('users.index') }}"><i class="fas fa-chevron-left"></i> Volver</a>
+                                <button style="position: relative; left: -3%;" type="submit" class="btn btn-outline-primary">
                                     {{ __('Añadir') }}
                                 </button>
                             </div>
