@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\anuncio;
 
-class categoria extends Model
+class Categoria extends Model
 {
     protected $table = 'categorias';
 
