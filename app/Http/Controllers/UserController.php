@@ -125,4 +125,28 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar el usuario']);
         }
     }
+
+    /**
+     * Set saldo for the specified resources from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function setSaldo($id_list)
+    {
+        foreach ($id_list as $id) {
+            
+        }
+        $user = User::find($id);
+        $user->actived = false;
+        $user->update();
+        if($user){
+            return redirect()->route('users.index')->with(
+                'message', ['success' , 'Usuario ' .$user->name.' deshabilitado correctamente']
+            );
+        }
+        else{
+            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar el usuario']);
+        }
+    }
 }

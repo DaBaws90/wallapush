@@ -8,13 +8,15 @@
             <div class="mb-4">
                 <a href="{{ route('users.create') }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
             </div>
+            <div class="mb-4">
+                <a href="{{ route('setSaldo', $id_list[]) }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
+            </div>
 
             <table class="table" id="example">
                 <thead>
                     <tr scope="row">
                         <th scope="col"></th>
                         <th scope="col">Nombre</th>
-                        <!-- <th scope="col">Email</th> -->
                         <th scope="col">Localidad</th>
                         <th scope="col">Saldo</th>
                         <th scope="col">Habilitado</th>
@@ -30,7 +32,6 @@
                     <tr scope="row">
                         <td><input onchange="return alert('{{$user->id}}')" type="checkbox" name="id_list[]" value="{{ $user->id }}"></td>
                         <td>{{ $user->name }}</td>
-                        <!-- <td>{{ $user->email }}</td> -->
                         <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>
                         <td>{{ $user->saldo > 0 ? $user->saldo : 'Sin saldo' }}</td>
                         <td>{{ $user->actived ? 'Sí' : 'No'}}</td>
