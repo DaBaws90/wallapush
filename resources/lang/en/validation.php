@@ -128,8 +128,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'id_list' => [
+            'required' => 'Debe seleccionar al menos un registro del listado',
         ],
     ],
 
@@ -144,6 +144,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'id_list' => 'checkbox'
+    ],
 
 ];
