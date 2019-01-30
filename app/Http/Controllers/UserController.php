@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(5);
+        $id_list = array();
         return view('users.index',compact("users"));
     }
 
@@ -111,12 +112,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function disable($id)
+    public function disable(Request $request)
     {
-        $user = User::find($id);
-        $user->actived = false;
-        $user->update();
-        if($user){
+        dd($request);
+        $this->validate($request, [
+            'id_list' => 'required',
+        ]);
+        $users = User::whereIn('id', $request->id_list)->get();
+        foreach($users as $user){
+            if($user->actived){
+                $user->actived = false;
+            }
+            else{
+                $user->actived = true;
+            }
+            $user->save();
+        }
+        if($users){
             return redirect()->route('users.index')->with(
                 'message', ['success' , 'Usuario ' .$user->name.' deshabilitado correctamente']
             );
@@ -127,26 +139,52 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form to set saldo.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saldo(Request $request)
+    {
+        $this->validate($request, [
+            'id_list' => 'required',
+        ]);
+        $users = User::whereIn('id', $request->id_list)->get();
+        // dd($users);
+        // $users = array();
+        // foreach($request->id_list as $id){
+        //     array_push($users, User::find($id));
+        // }
+        // dd($users);
+        return view('users.saldo', compact('users'));
+    }
+
+    /**
      * Set saldo for the specified resources from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function setSaldo($id_list)
+    public function setSaldo(Request $request)
     {
-        foreach ($id_list as $id) {
-            
+        // $this->validate($request, [
+        //     'saldo' => 'required|min:1|numeric',
+        // ]);
+        // dd($request);
+        $users = array();
+        foreach ($request->users as $user) {
+            $usuario=User::find($user);
+            // $user = User::find($id);
+            $usuario->saldo = $request->saldo;
+            $usuario->save();
         }
-        $user = User::find($id);
-        $user->actived = false;
-        $user->update();
-        if($user){
-            return redirect()->route('users.index')->with(
-                'message', ['success' , 'Usuario ' .$user->name.' deshabilitado correctamente']
+        
+        // if($users.count() == $id_list.count()){
+        if($users){
+            return redirect()->route('users.index')->with('message', ['success' , 'Saldos correctamente establecidos']
             );
         }
         else{
-            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar el usuario']);
+            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo establecer el saldo']);
         }
     }
 }

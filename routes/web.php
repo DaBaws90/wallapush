@@ -20,8 +20,9 @@ Route::get('profile', function () {
 Route::group(['middleware' => 'auth'], function () {
     
     // User routes
-    Route::post('/users/setSaldo/{id_list}', 'UserController@setSado')->name('setSaldo');
-    Route::post('/users/{id}/disable', 'UserController@disable')->name('disableUser');
+    Route::post('/users/saldo', 'UserController@saldo')->name('saldo');
+    Route::post('/users/setSaldo', 'UserController@setSaldo')->name('setSaldo');
+    Route::post('/users/disable', 'UserController@disable')->name('disableUser');
     Route::resource('users','UserController');
 
 });

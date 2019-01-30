@@ -9,9 +9,14 @@
                 <a href="{{ route('users.create') }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
             </div>
             <div class="mb-4">
-                <a href="{{ route('setSaldo', $id_list[]) }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
+                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm">Ajustes de saldo</button>
             </div>
-
+            <div class="mb-4">
+                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm">Activar/Desactivar selección</button>
+            </div>
+            
+            <form action="{{ route('saldo') }}" method="POST" id="myForm">
+            @csrf 
             <table class="table" id="example">
                 <thead>
                     <tr scope="row">
@@ -29,8 +34,8 @@
                 <tbody>
                 @forelse($users as $user)
                     @if($user->role != "admin")
-                    <tr scope="row">
-                        <td><input onchange="return alert('{{$user->id}}')" type="checkbox" name="id_list[]" value="{{ $user->id }}"></td>
+                    <tr scope="row">                        
+                        <td><input type="checkbox" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="id_list[]" value="{{ $user->id }}"></td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>
                         <td>{{ $user->saldo > 0 ? $user->saldo : 'Sin saldo' }}</td>
@@ -63,12 +68,23 @@
                 @endforelse
                 </tbody>
             </table>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ $error }}
+                </div>
+                @endforeach
+            @endif
+            </form>
         </div>
     </div>
     <!-- Navegación -->
     <div class="row">
-        <div class="col-md-4 offset-md-4 mt-3 mb-5">
-            <div style="text-align:center">
+        <div class="col-md-4 offset-md-3 mt-3 mb-5">
+            <div style="text-align:center" class="ml-3">
                 @if($users->count())
                     {{$users->links()}}
                 @endif
