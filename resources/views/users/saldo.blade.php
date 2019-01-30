@@ -22,7 +22,6 @@
                         <td>{{ $user->saldo > 0 ? $user->saldo : 'Sin saldo' }}</td>
                         <input type="hidden" name="users[]" value="{{$user->id}}">
                     </tr>
-                <!-- </tbody> -->
                 @empty
                     <tr scope="row">
                         <td col="2">
@@ -37,13 +36,13 @@
                 <label class="col-md-2 col-form-label" for="saldo">Nuevo saldo</label>
                 <div class="col-md-12">
                     <input class="form-control" type="number" name="saldo" min="0" required/>
-                    @if($errors->has('saldo'))
+                    <!-- @if($errors->has('saldo'))
                     <div class="text-center alert-dismissible fade show alert alert-danger">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    @endif
+                    @endif -->
                 </div>
             </div>
             <div class="mb-4">
@@ -55,7 +54,6 @@
             </form>
         </div>
     </div>
-    <!-- Navegación -->
 </div>
 
 @endsection

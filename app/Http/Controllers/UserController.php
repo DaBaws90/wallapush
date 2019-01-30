@@ -15,7 +15,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(5);
-        $id_list = array();
         return view('users.index',compact("users"));
     }
 
@@ -112,12 +111,59 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function disable(Request $request)
+    public function disable($id)
     {
-        dd($request);
-        $this->validate($request, [
-            'id_list' => 'required',
-        ]);
+        $user = User::find($id);
+        if($user->actived){
+            $user->actived = false;
+        }
+        else{
+            $user->actived = true;
+        }
+        $user->save();
+        if($user){
+            return redirect()->route('users.index')->with(
+                'message', ['success' , 'Usuario deshabilitado/habilitados correctamente']
+            );
+        }
+        else{
+            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar/habilitar el usuario']);
+        }
+    }
+
+    /**
+     * Show the form to set saldo.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function disableUsers()
+    {
+        $users = User::latest()->paginate(5);
+        // $this->validate($request, [
+        //     'id_list' => 'required',
+        // ]);
+        // $users = User::whereIn('id', $request->id_list)->get();
+        // dd($users);
+        // $users = array();
+        // foreach($request->id_list as $id){
+        //     array_push($users, User::find($id));
+        // }
+        // dd($users);
+        return view('users.disable', compact('users'));
+    }
+
+    /**
+     * Disables the specified resources from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function disableUsersPost(Request $request)
+    {
+        // dd($request);
+        // $this->validate($request, [
+        //     'id_list' => 'required',
+        // ]);
         $users = User::whereIn('id', $request->id_list)->get();
         foreach($users as $user){
             if($user->actived){
@@ -130,11 +176,11 @@ class UserController extends Controller
         }
         if($users){
             return redirect()->route('users.index')->with(
-                'message', ['success' , 'Usuario ' .$user->name.' deshabilitado correctamente']
+                'message', ['success' , 'Usuarios deshabilitado/habilitados correctamente']
             );
         }
         else{
-            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar el usuario']);
+            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudieron deshabilitar/habilitar los usuarios']);
         }
     }
 

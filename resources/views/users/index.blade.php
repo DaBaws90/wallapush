@@ -9,10 +9,10 @@
                 <a href="{{ route('users.create') }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
             </div>
             <div class="mb-4">
-                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm">Ajustes de saldo</button>
+                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm" style="color: black;">Ajustes de saldo</button>
             </div>
             <div class="mb-4">
-                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm">Activar/Desactivar selección</button>
+                <a href="{{ route('disableUsers') }}" class="btn btn-outline-primary btn-block">Activar/Desactivar usuarios</a>
             </div>
             
             <form action="{{ route('saldo') }}" method="POST" id="myForm">
@@ -34,9 +34,9 @@
                 <tbody>
                 @forelse($users as $user)
                     @if($user->role != "admin")
-                    <tr scope="row">                        
+                    <tr scope="row" class="pt-2 mt-3">                        
                         <td><input type="checkbox" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="id_list[]" value="{{ $user->id }}"></td>
-                        <td>{{ $user->name }}</td>
+                        <td class="pt-2 mt-2">{{ $user->name }}</td>
                         <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>
                         <td>{{ $user->saldo > 0 ? $user->saldo : 'Sin saldo' }}</td>
                         <td>{{ $user->actived ? 'Sí' : 'No'}}</td>
@@ -45,9 +45,8 @@
                         <td>
                             <form action="{{ route('disableUser', $user->id) }}" method="POST">
                                 {{csrf_field()}}
-                                <button onclick="return confirm('Deshabilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
+                                <button onclick="return confirm('Deshabilitar/habilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
                             </form>
-                            <!-- <a href="{{ route('disableUser', ['id'=> $user->id]) }}"><i class="fas fa-times"></i></a> -->
                         </td>
                         <td>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST">
@@ -84,7 +83,7 @@
     <!-- Navegación -->
     <div class="row">
         <div class="col-md-4 offset-md-3 mt-3 mb-5">
-            <div style="text-align:center" class="ml-3">
+            <div style="text-align:center" >
                 @if($users->count())
                     {{$users->links()}}
                 @endif
