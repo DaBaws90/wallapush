@@ -13,6 +13,11 @@ class AnuncioController extends Controller
         return view('anuncios.addAnuncio', compact('categorias'));
     }
 
+    public function listAnuncios() {
+        $anuncios = anuncio::all();
+        return view('anuncios.listAnuncios', compact('anuncios'));
+    }
+
     public function storeAnuncio(Request $request) {
         $request->validate([
             'id_categoria' => 'required',
