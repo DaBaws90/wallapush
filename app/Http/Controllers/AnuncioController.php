@@ -14,8 +14,13 @@ class AnuncioController extends Controller
     }
 
     public function listAnuncios() {
-        $anuncios = anuncio::all();
+        $anuncios = anuncio::orderBy('id', 'desc')->paginate(6);
         return view('anuncios.listAnuncios', compact('anuncios'));
+    }
+
+    public function detailsAnuncio($id) {
+        $anuncio = anuncio::find($id);
+        return view('anuncios.details', compact('anuncio'));
     }
 
     public function storeAnuncio(Request $request) {

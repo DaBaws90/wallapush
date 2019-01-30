@@ -1,7 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
-.addFormAnuncio, .addFormCategoria {
-    margin-top: 3em;
+.nav {
+    margin-bottom: 3em;
+}
+
+.pagination {
+    margin-top: 1rem;
+}
+
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+a:hover {
+    color: black !important;
+    text-decoration: none !important;
 }
 
 .addFormCategoria .card-body, .addFormAnuncio .card-body {
@@ -32,6 +46,10 @@
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 10px;
+}
+
+.anuncio {
+    height: 100%;
 }
 
 /*!

@@ -40,9 +40,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/anuncios/add', 'AnuncioController@addAnuncio')->name('addAnuncio');
     Route::post('/anuncios/store', 'AnuncioController@storeAnuncio')->name('storeAnuncio');
     Route::get('/anuncios/list', 'AnuncioController@listAnuncios')->name('listAnuncios');
+    Route::get('/anuncios/details/{id}', 'AnuncioController@detailsAnuncio')->name('detailAnuncio');
 
     // Images
-    Route::get('/anuncios/{path}/{attachment}', function ($path, $attachment){
+    Route::get('/images/{path}/{attachment}', function ($path, $attachment){
         // Lo siguiente devuelve el Path absoluto de "Storage"
         $storagePath = Storage::disk($path)->getDriver()->getAdapter()->getPathPrefix();
         $imageFilePath = $storagePath . $attachment;
