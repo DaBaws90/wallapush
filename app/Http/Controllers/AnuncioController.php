@@ -36,6 +36,15 @@ class AnuncioController extends Controller
         return back()->with('message', ['success', __("Anuncio creado correctamente")]);
     }
 
+    public function remove($id) {
+        $anuncio = anuncio::find($id);
+        if($anuncio->isOwner()) {
+            $anuncio->delete();
+        }
+        return redirect(route('listAnuncios'));
+        // return back()->with('message', ['success', __('Anuncio eliminado correctamente')]);
+    }
+
     public function categorias() {
         return view('anuncios.addCategoria');
     }

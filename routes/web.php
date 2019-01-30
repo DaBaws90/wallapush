@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/anuncios/store', 'AnuncioController@storeAnuncio')->name('storeAnuncio');
     Route::get('/anuncios/list', 'AnuncioController@listAnuncios')->name('listAnuncios');
     Route::get('/anuncios/details/{id}', 'AnuncioController@detailsAnuncio')->name('detailAnuncio');
+    Route::get('/anuncios/remove/{id}', 'AnuncioController@remove')->name('removeAnuncio');
 
     // Images
     Route::get('/images/{path}/{attachment}', function ($path, $attachment){

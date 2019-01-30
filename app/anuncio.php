@@ -19,4 +19,8 @@ class anuncio extends Model
     public function vendedor(){
         return $this->belongsTo(User::class, 'id_vendedor');
     }
+
+    public function isOwner() {
+        return $this->id_vendedor === auth()->id();
+    }
 }
