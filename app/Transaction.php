@@ -12,7 +12,7 @@ class Transaction extends Model
 
     protected $fillable = ['valoracion'];
 
-    public function anuncion(){
+    public function anuncio(){
         return $this->belongsTo(anuncio::class, 'id_anuncio');
     }
 
