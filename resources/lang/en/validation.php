@@ -131,6 +131,14 @@ return [
         'id_list' => [
             'required' => 'Debe seleccionar al menos un registro del listado',
         ],
+        'users' => [
+            'required' => 'Debe seleccionar al menos un registro del listado',
+        ],
+        'saldo' => [
+            'required' => 'Debe especificar el saldo a establecer',
+            'numeric' => 'Deben ser dígitos',
+            'min' => 'Debe ser un valor igual o mayor a 1',
+        ]
     ],
 
     /*

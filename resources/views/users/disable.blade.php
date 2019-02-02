@@ -8,6 +8,16 @@
             <div class="alert alert-warning alert-dismissible fade show">
                 {{__('Atención. Los usuarios seleccionados alternarán su estado de desactivado a activado o viceversa cuando pulse de botón situado en el margen inferior')}}
             </div>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ $error }}
+                </div>
+                @endforeach
+            @endif
             <form action="{{ route('disableUsersPost') }}" method="POST" id="disableForm">
                 @csrf
                 <table class="table" id="example">
@@ -36,8 +46,12 @@
                     @endforelse
                     </tbody>
                 </table>
+                
             </form>
-            <button type="submit" form="disableForm" class="btn btn-outline-primary btn-block mb-5">Activar/desactivar</button>
+            <button type="submit" form="disableForm" class="btn btn-outline-primary btn-block mb-4">Activar/desactivar</button>
+            <div class="mb-4">
+                <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-block">Volver atrás</a>
+            </div>
         </div>
     </div>
 </div>

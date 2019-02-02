@@ -139,16 +139,6 @@ class UserController extends Controller
     public function disableUsers()
     {
         $users = User::latest()->paginate(5);
-        // $this->validate($request, [
-        //     'id_list' => 'required',
-        // ]);
-        // $users = User::whereIn('id', $request->id_list)->get();
-        // dd($users);
-        // $users = array();
-        // foreach($request->id_list as $id){
-        //     array_push($users, User::find($id));
-        // }
-        // dd($users);
         return view('users.disable', compact('users'));
     }
 
@@ -160,10 +150,9 @@ class UserController extends Controller
      */
     public function disableUsersPost(Request $request)
     {
-        // dd($request);
-        // $this->validate($request, [
-        //     'id_list' => 'required',
-        // ]);
+        $this->validate($request, [
+            'id_list' => 'required',
+        ]);
         $users = User::whereIn('id', $request->id_list)->get();
         foreach($users as $user){
             if($user->actived){
@@ -195,12 +184,10 @@ class UserController extends Controller
             'id_list' => 'required',
         ]);
         $users = User::whereIn('id', $request->id_list)->get();
-        // dd($users);
         // $users = array();
         // foreach($request->id_list as $id){
         //     array_push($users, User::find($id));
         // }
-        // dd($users);
         return view('users.saldo', compact('users'));
     }
 
@@ -225,12 +212,29 @@ class UserController extends Controller
         }
         
         // if($users.count() == $id_list.count()){
-        if($users){
+        if($request->users){
             return redirect()->route('users.index')->with('message', ['success' , 'Saldos correctamente establecidos']
             );
         }
         else{
             return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo establecer el saldo']);
         }
+    }
+
+    public function userSortBySales(){
+        $users = User::all();
+        $sortUsers = array();
+        $sortBySales = array();
+        
+        foreach ($users as $user) {
+            $sales = Anuncio::where('id_vendedor', $user->id)->where('vendido', true)->get();
+            foreach ($sales as $sale) {
+                $total += $sale->precio;
+            }
+            array_push($sortUsers, ['user', ['userName' => $user->name, 'sales' => $total]]);
+            $total = 0;
+        }
+        $sortBySales = collect($sortUsers)->sortBy('sales')->reverse()->toArray();
+        return view('users.sortBySales', compact('sortBySales'));
     }
 }
