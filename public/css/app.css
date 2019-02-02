@@ -90,6 +90,10 @@ a:hover {
     margin: 0;
     transition: all .5s ease-in-out;
 }
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    color: black !important;
+}
     
 
 

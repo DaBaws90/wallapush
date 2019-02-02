@@ -6,9 +6,28 @@
         {{-- <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap" style="height: 50vh; width: auto;">
         --}}
         @if($anuncio->images->count() > 0)
-        @foreach ($anuncio->images as $image)
-        <img class="card-img-top" src="{{ url('storage/anuncios/' . $image->img) }}" alt="Card image cap" style="height: 50vh; width: auto;">
-        @endforeach
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                    @foreach ($anuncio->images as $image)
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                @endforeach
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                @foreach ($anuncio->images as $image)
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <img class="d-block img-fluid" src="{{ url('storage/anuncios/' . $image->img) }}" style="min-height: 50vh; max-height: 50vh; margin: 0 auto;">
+                </div>
+                @endforeach
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Siguiente</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+        </div>
         @else
         <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap" style="height: 50vh; width: auto;">
         @endif

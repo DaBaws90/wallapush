@@ -14,10 +14,10 @@
                     <div class="card anuncio">
                         <div class="image">
                         @if($anuncio->image())
-                        <img class="card-img-top" src="{{ url('storage/anuncios/' . $anuncio->image()->img) }}" alt="Card image cap" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
+                        <img class="card-img-top" src="{{ url('storage/anuncios/' . $anuncio->image()->img) }}" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
                         <h5 class="titulo-producto">{{ $anuncio->producto }}</h5>
                         @else
-                        <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default2.png') }}" alt="Card image cap" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
+                        <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default2.png') }}" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
                         <h5 class="titulo-producto">{{ $anuncio->producto }}</h5>
                         @endif
                         </div>
