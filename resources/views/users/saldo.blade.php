@@ -35,16 +35,26 @@
             <div class="form-group">
                 <label class="col-md-2 col-form-label" for="saldo">Nuevo saldo</label>
                 <div class="col-md-12">
-                    <input class="form-control" type="number" name="saldo" min="0" required/>
-                    <!-- @if($errors->has('saldo'))
+                    <input class="form-control" type="number" name="saldo" required min="0"/>
+                    @if($errors->has('saldo'))
                     <div class="text-center alert-dismissible fade show alert alert-danger">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    @endif -->
+                    @endif
                 </div>
             </div>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ $error }}
+                </div>
+                @endforeach
+            @endif
             <div class="mb-4">
                 <button type="submit" class="btn btn-outline-primary btn-block" form="myForm">Ajustar</button>
             </div>
