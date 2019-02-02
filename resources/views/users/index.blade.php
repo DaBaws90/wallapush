@@ -24,6 +24,14 @@
                 </div>
                 @endforeach
             @endif
+            @if(session('message')) 
+            <div class="alert alert-{{ session('message')[0] }} alert-dismissible fade show"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                {{ session('message')[1] }} 
+            </div> 
+            @endif
             <form action="{{ route('saldo') }}" method="POST" id="myForm">
             @csrf 
             <table class="table" id="example">
@@ -36,7 +44,7 @@
                         <th scope="col">Habilitado</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                        <th scope="col"></th>
+                        <!-- <th scope="col"></th> -->
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -52,7 +60,7 @@
                         <td><a href="{{ route('users.show', $user->id) }}"><i class="fas fa-search"></i></a></td>
                         <td><a href="{{ route('users.edit', $user->id) }}"><i class="fas fa-user-edit"></i></a></td>
                         <td>
-                            <form action="{{ route('disableUser', $user->id) }}" method="POST">
+                            <form action="{{ route('disableUser', ['id' => $user->id]) }}" method="POST">
                                 {{csrf_field()}}
                                 <button onclick="return confirm('Deshabilitar/habilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
                             </form>

@@ -132,7 +132,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form to set saldo.
+     * Show the form to disable users.
      *
      * @return \Illuminate\Http\Response
      */
@@ -165,7 +165,7 @@ class UserController extends Controller
         }
         if($users){
             return redirect()->route('users.index')->with(
-                'message', ['success' , 'Usuarios deshabilitado/habilitados correctamente']
+                'message', ['success' , 'Usuarios deshabilitados/habilitados correctamente']
             );
         }
         else{
@@ -184,10 +184,6 @@ class UserController extends Controller
             'id_list' => 'required',
         ]);
         $users = User::whereIn('id', $request->id_list)->get();
-        // $users = array();
-        // foreach($request->id_list as $id){
-        //     array_push($users, User::find($id));
-        // }
         return view('users.saldo', compact('users'));
     }
 
@@ -202,16 +198,12 @@ class UserController extends Controller
         // $this->validate($request, [
         //     'saldo' => 'required|min:1|numeric',
         // ]);
-        // dd($request);
         $users = array();
         foreach ($request->users as $user) {
             $usuario=User::find($user);
-            // $user = User::find($id);
             $usuario->saldo = $request->saldo;
             $usuario->save();
         }
-        
-        // if($users.count() == $id_list.count()){
         if($request->users){
             return redirect()->route('users.index')->with('message', ['success' , 'Saldos correctamente establecidos']
             );
