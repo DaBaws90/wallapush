@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="images">{{ __("Imágenes") }}</label>
                         <input type="file" id="images" class="form-control" name="images[]" value="{{ old('images') }}"
-                            multiple required accept="image/*"/>
+                            multiple accept="image/*"/>
                     </div>
                     <div class="form-group">
                         <div class="form-check">

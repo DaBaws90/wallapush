@@ -22,7 +22,8 @@ class AnuncioController extends Controller
 
     public function detailsAnuncio($id) {
         $anuncio = anuncio::find($id);
-        return view('anuncios.details', compact('anuncio'));
+        $images = $anuncio->images();
+        return view('anuncios.details', compact('anuncio', 'images'));
     }
 
     public function storeAnuncio(Request $request) {
@@ -32,21 +33,22 @@ class AnuncioController extends Controller
             'precio' => 'required',
             'nuevo' => 'required',
             'descripcion' => 'required',
-            'images' => 'required',
+            // 'images' => 'required',
         ]);
         // dd($request->images[0]->get);
         
         $request->merge(['id_vendedor' => auth()->id()]);
         $anuncio = anuncio::create($request->all());
-        foreach ($request->images as $image) {
-            $image->store('public/anuncios');
-            image::create([
-                'id_anuncio' => $anuncio->id,
-                'img' => $image->hashName(),
-            ]);
-            
-            
-       }
+        if ($request->images) {
+            foreach ($request->images as $image) {
+                $image->store('public/anuncios');
+                image::create([
+                    'id_anuncio' => $anuncio->id,
+                    'img' => $image->hashName(),
+                ]);
+           }
+        }
+       
         return back()->with('message', ['success', __("Anuncio creado correctamente")]);
     }
 
@@ -62,6 +64,16 @@ class AnuncioController extends Controller
     public function remove($id) {
         $anuncio = anuncio::find($id);
         if($anuncio->isOwner()) {
+            if($anuncio->images) {
+                $prueba = "";
+                foreach ($anuncio->images as $image) {
+                    Storage::disk('anuncios')->delete($image->img);
+                    // dd("anuncios/" . $image->img);
+                    // $prueba = $prueba .  $image->img;
+                }   
+                // dd($prueba);
+                $anuncio->images()->delete();
+            }
             $anuncio->delete();
         }
         return redirect(route('listAnuncios'));
