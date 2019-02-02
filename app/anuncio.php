@@ -25,6 +25,16 @@ class anuncio extends Model
         return $this->hasMany(image::class, 'id_anuncio');
     }
 
+    public function image() {
+        // dd($this->hasMany(image::class, 'id_anuncio')->limit(1));
+        // return $this->hasMany(image::class, 'id_anuncio')->limit(1);
+        // return $this->hasOne(image::class, 'id_anuncio');
+        // $images = image::where('id_anuncio', $this->id);
+        // return image::all()->paginate(1);  
+        $image = $this->images()->first();
+        return $image;
+    }
+
     public function isOwner() {
         return $this->id_vendedor === auth()->id();
     }
