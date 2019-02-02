@@ -50,7 +50,7 @@ return [
 
         'anuncios' => [
             'driver' => 'local',
-            'root' => storage_path('app/anuncios'),
+            'root' => storage_path('app/public/anuncios'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
