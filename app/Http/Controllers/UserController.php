@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 
 class UserController extends Controller
@@ -36,19 +37,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // $messages = [
+        //     'name.required' => 'El campo nombre es obligatorio',
+        // ];
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'localidad' => 'string|max:191'
+            'localidad' => 'max:191',
         ]);
-        $user = User::create($request->all());
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string|max:191',
+        //     'email' => 'required|string|email|max:191|unique:users',
+        //     'password' => 'required|string|min:6|confirmed',
+        //     'localidad' => 'string|max:191',
+        // ]);
+        // dd($request);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'localidad' => $request->localidad,
+        ]);
 
         if($user){
             return redirect()->route('users.index')->with('message', ['success', 'Usuario creado correctamente']);
         }
         else{
-            return redirect()->route('users.index')->with('message', ['danger', 'No se pudo crar el usuario']);
+            return redirect()->route('users.index')->with('message', ['danger', 'No se pudo crear el usuario']);
         }
     }
 
@@ -205,7 +221,7 @@ class UserController extends Controller
             $usuario->save();
         }
         if($request->users){
-            return redirect()->route('users.index')->with('message', ['success' , 'Saldos correctamente establecidos']
+            return redirect()->route('users.index')->with('message', ['success' , 'Saldo(s) correctamente establecido(s)']
             );
         }
         else{

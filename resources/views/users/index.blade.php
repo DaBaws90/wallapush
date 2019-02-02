@@ -61,13 +61,13 @@
                         <td><a href="{{ route('users.edit', $user->id) }}"><i class="fas fa-user-edit"></i></a></td>
                         <td>
                             <form action="{{ route('disableUser', ['id' => $user->id]) }}" method="POST">
-                                {{csrf_field()}}
+                                @csrf
                                 <button onclick="return confirm('Deshabilitar/habilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
                             </form>
                         </td>
                         <td>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                {{csrf_field()}}
+                                @csrf
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button onclick="return confirm('Eliminar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
                             </form>
