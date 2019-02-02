@@ -11,7 +11,7 @@
                 @forelse ($anuncios as $anuncio)
                 <a href="/anuncios/details/{{ $anuncio->id }}">
                     <div class="card anuncio">
-                        <img class="card-img-top" src="../anuncios/default.png" alt="Card image cap">
+                        <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap">
                         <div class="card-body">
                             <div class="card-title">{{ $anuncio->producto }}</div>
                             <p class="card-text">{{ $anuncio->descripcion }}</p>

@@ -43,7 +43,7 @@
             </div>
             @endif
             <div class="form">
-                <form method="POST" action="{{ route('storeAnuncio') }}">
+                <form method="POST" action="{{ route('storeAnuncio') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="id_categoria">{{ __("Categoría") }}</label>
@@ -69,16 +69,21 @@
                             required />
                     </div>
                     <div class="form-group">
+                        <label for="images">{{ __("Imágenes") }}</label>
+                        <input type="file" id="images" class="form-control" name="images[]" value="{{ old('images') }}"
+                            multiple required accept="image/*"/>
+                    </div>
+                    <div class="form-group">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="nuevo" id="nuevo" value="1" checked>
                             <label class="form-check-label" for="nuevo">
-                                Nuevo
+                                {{ __("Nuevo") }}
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="nuevo" id="nuevo" value="0" checked>
                             <label class="form-check-label" for="nuevo">
-                                Segunda mano
+                                {{ __("Segunda mano") }}
                             </label>
                         </div>
                     </div>

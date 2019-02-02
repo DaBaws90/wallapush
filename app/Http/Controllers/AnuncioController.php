@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\categoria;
 use App\anuncio;
+use App\image;
+use Illuminate\Support\Facades\Storage;
 
 class AnuncioController extends Controller
 {
@@ -30,10 +32,31 @@ class AnuncioController extends Controller
             'precio' => 'required',
             'nuevo' => 'required',
             'descripcion' => 'required',
+            'images' => 'required',
         ]);
+        // dd($request->images[0]->get);
+        
         $request->merge(['id_vendedor' => auth()->id()]);
-        anuncio::create($request->all());
+        $anuncio = anuncio::create($request->all());
+        foreach ($request->images as $image) {
+            $image->store('public/anuncios');
+            image::create([
+                'id_anuncio' => $anuncio->id,
+                'img' => $image->hashName(),
+            ]);
+            
+            
+       }
         return back()->with('message', ['success', __("Anuncio creado correctamente")]);
+    }
+
+    public function edit($id) {
+        $anuncio = anuncio::find($id);
+        if($anuncio->isOwner()) {
+            return view('anuncios.editAnuncio', compact('anuncio'));
+        }
+        return back()->with('message', ['success', __("No tienes acceso a este anuncio")]);
+        
     }
 
     public function remove($id) {
