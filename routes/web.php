@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/anuncios/details/{id}', 'AnuncioController@detailsAnuncio')->name('detailAnuncio');
     Route::get('/anuncios/remove/{id}', 'AnuncioController@remove')->name('removeAnuncio');
     Route::get('/anuncios/edit/{id}', 'AnuncioController@edit')->name('editAnuncio');
+    Route::post('/anuncios/editAnuncio/', 'AnuncioController@editAnuncio')->name('editAnuncio');
 
     // Images
     Route::get('/images/{path}/{attachment}', function ($path, $attachment){

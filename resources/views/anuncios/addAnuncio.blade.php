@@ -60,8 +60,8 @@
                     </div>
                     <div class="form-group">
                         <label for="descripcion">{{ __("Descripcion") }}</label>
-                        <input id="descripcion" class="form-control" name="descripcion" value="{{ old('descripcion') }}"
-                            required />
+                        <textarea id="descripcion" class="form-control" name="descripcion" value="{{ old('descripcion') }}"
+                            required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="precio">{{ __("Precio") }}</label>
