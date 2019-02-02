@@ -6,14 +6,21 @@
         <div class="card-header" style="text-align: center; background-color: #353535; color: #fff;">
             <h1>Lista de anuncios</h1>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="background-color: #b0b4ba;">
             <div class="grid-container">
                 @forelse ($anuncios as $anuncio)
                 <a href="/anuncios/details/{{ $anuncio->id }}">
+                {{-- <h1>{{ $anuncio->image }}</h1> --}}
                     <div class="card anuncio">
-                        <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <div class="card-title">{{ $anuncio->producto }}</div>
+                        <div class="image" style="">
+                        @if($anuncio->image())
+                        <img class="card-img-top" src="{{ url('storage/anuncios/' . $anuncio->image()->img) }}" alt="Card image cap" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
+                        @else
+                        <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default2.png') }}" alt="Card image cap" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
+                        @endif
+                        </div>
+                        <div class="card-body" style="background-color: #353535; color: #fff;">
+                            <div class="card-title" style="font-weight: bold; font-size: 2em;">{{ $anuncio->producto }}</div>
                             <p class="card-text">{{ $anuncio->descripcion }}</p>
                             <p class="card-text">Categoría: {{ $anuncio->categoria->nombre }}</p>
                         </div>
