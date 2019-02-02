@@ -20,7 +20,7 @@
         <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap" style="height: 50vh; width: auto;">
         @endif
         <div class="card-body">
-                <form method="POST" action="{{ route('editAnuncio', $anuncio) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('editAnuncio') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
             <div class="form-group">
                 <label for="producto">Producto</label>
