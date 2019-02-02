@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header" style="text-align: center; background-color: #353535; color: #fff;">
-            <h1>Lista de anuncios</h1>
+            <h1>Anuncios</h1>
         </div>
         <div class="card-body" style="background-color: #b0b4ba;">
             <div class="grid-container">
@@ -12,21 +12,23 @@
                 <a href="/anuncios/details/{{ $anuncio->id }}">
                 {{-- <h1>{{ $anuncio->image }}</h1> --}}
                     <div class="card anuncio">
-                        <div class="image" style="">
+                        <div class="image">
                         @if($anuncio->image())
                         <img class="card-img-top" src="{{ url('storage/anuncios/' . $anuncio->image()->img) }}" alt="Card image cap" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
+                        <h5 class="titulo-producto">{{ $anuncio->producto }}</h5>
                         @else
                         <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default2.png') }}" alt="Card image cap" style="max-height: 35vh; min-height: 35vh; max-width: 100%;">
+                        <h5 class="titulo-producto">{{ $anuncio->producto }}</h5>
                         @endif
                         </div>
                         <div class="card-body" style="background-color: #353535; color: #fff;">
-                            <div class="card-title" style="font-weight: bold; font-size: 2em;">{{ $anuncio->producto }}</div>
-                            <p class="card-text">{{ $anuncio->descripcion }}</p>
-                            <p class="card-text">Categoría: {{ $anuncio->categoria->nombre }}</p>
+                            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Categoría: {{ $anuncio->categoria->nombre }}</p>
+                            <div class="dropdown-divider"></div>
+                            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Vendedor: {{ $anuncio->vendedor->name }}</p>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{ $anuncio->precio }} €</li>
-                        </ul>
+                        <div class="card-footer" style="background-color: rgba(63, 63, 63, 0.8); color: #fff;">
+                                <p class="card-text" style="font-weight: bold; font-size: 1.2em;"> {{ $anuncio->precio }} €</p>
+                        </div>
                     </div>
                 </a>
                 @empty
