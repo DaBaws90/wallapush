@@ -18,11 +18,14 @@
             <h5 class="card-title">{{ $anuncio->producto}} </h5>
             <p class="card-text">{{ $anuncio->descripcion }}</p>
             <p class="card-text">Categoría: {{ $anuncio->categoria->nombre }}</p>
+            @if ($anuncio->isOwner())
+            <p class="card-text">{{ $anuncio->precio }} €</p>
+            @endif
         </div>
         <div class="card-footer">
             @if ($anuncio->isOwner())
             <a href="/anuncios/edit/{{ $anuncio->id }}" class="btn btn-success" style="color: #fff !important;">Editar anuncio</a>
-        <a href="/anuncios/remove/{{ $anuncio->id }}" class="btn btn-danger" style="color: #fff !important;">Eliminar anuncio</a>
+            <a href="/anuncios/remove/{{ $anuncio->id }}" class="btn btn-danger" style="color: #fff !important;">Eliminar anuncio</a>
             @else
             <a href="#" class="btn btn-primary" style="color: #fff !important;">Comprar ({{ $anuncio->precio }} €)</a>
             @endif

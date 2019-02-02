@@ -55,10 +55,29 @@ class AnuncioController extends Controller
     public function edit($id) {
         $anuncio = anuncio::find($id);
         if($anuncio->isOwner()) {
-            return view('anuncios.editAnuncio', compact('anuncio'));
+            $categorias = categoria::all();
+            return view('anuncios.editAnuncio', compact('anuncio', 'categorias'));
         }
-        return back()->with('message', ['success', __("No tienes acceso a este anuncio")]);
-        
+        return back()->with('message', ['success', __("No tienes acceso a este anuncio")]);   
+    }
+
+    public function editAnuncio(Request $request) {
+        anuncio::where('id', $request->id)->update([
+            'producto' => $request['producto'],
+            'id_categoria' => $request['id_categoria'],
+            'descripcion' => $request['descripcion'],
+            'precio' => $request['precio'],
+        ]);
+        if ($request->images) {
+            foreach ($request->images as $image) {
+                $image->store('public/anuncios');
+                image::create([
+                    'id_anuncio' => $request->id,
+                    'img' => $image->hashName(),
+                ]);
+           }
+        }
+        return back()->with('message', ['success', __("Anuncio editado con éxito")]);   
     }
 
     public function remove($id) {
