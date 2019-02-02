@@ -138,6 +138,9 @@ return [
             'required' => 'Debe especificar el saldo a establecer',
             'numeric' => 'Deben ser dígitos',
             'min' => 'Debe ser un valor igual o mayor a 1',
+        ],
+        'localidad' => [
+            'string' => 'Localidad must be a non-empty string',
         ]
     ],
 
