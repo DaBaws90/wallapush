@@ -44,10 +44,17 @@
                                 Anuncios
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @if(Auth::check())
                                 <a class="dropdown-item" href="{{ route('addAnuncio') }}">Añadir</a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('listAnuncios') }}">Listado</a>
+                                @if(Auth::check())
+                                @if (Auth::user()->role == 'admin')
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('categorias') }}">Añadir categoría</a>
+                                @endif
+                                @endif
+                                
                             </div>
                         </li>
                     </ul>
