@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/anuncios/remove/{id}', 'AnuncioController@remove')->name('removeAnuncio');
     Route::get('/anuncios/edit/{id}', 'AnuncioController@edit')->name('editAnuncio');
     Route::post('/anuncios/editAnuncio/', 'AnuncioController@editAnuncio')->name('editAnuncio');
+
+    //TRANSACCIONES
+    Route::get('/compra/confirmar/{id}', 'TransactionController@addVenta')->name('confirmarcompra');
+    Route::post('compra', 'TransactionController@storeVenta')->name('comprar');
+    Route::get('/compra/valorarcompra/', 'TransactionController@valorarCompra')->name('valorarcompra');
+    Route::post('valoracion', 'TransactionController@valoracion')->name('valoracion');
+    Route::get('/compras/compras', 'TransactionController@compras')->name('compras');
+    Route::get('/compras/ventas', 'TransactionController@ventas')->name('ventas');
 
     // Images
     // Route::get('/images/{path}/{attachment}', function ($path, $attachment){

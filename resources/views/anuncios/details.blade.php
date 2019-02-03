@@ -61,7 +61,7 @@
             <a href="/anuncios/remove/{{ $anuncio->id }}" class="btn btn-danger" style="color: #fff !important;">Eliminar
                 anuncio</a>
             @else
-            <a href="#" class="btn btn-primary" style="color: #fff !important;">Comprar ({{ $anuncio->precio }} €)</a>
+            <a href="{{ route('confirmarcompra', [ 'id_anuncio' => $anuncio->id ]) }}" class="btn btn-primary" style="color: #fff !important;">Comprar ({{ $anuncio->precio }} €)</a>
             @endif
         </div>
         @else

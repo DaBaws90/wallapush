@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\categoria;
 use App\User;
+use App\Transaction;
 use App\image;
 
 class anuncio extends Model
@@ -21,6 +22,10 @@ class anuncio extends Model
         return $this->belongsTo(User::class, 'id_vendedor');
     }
 
+    public function transaccion(){
+        return $this->hasOne(Transacction::class, 'id_anuncio');
+    }
+    
     public function images() {
         return $this->hasMany(image::class, 'id_anuncio');
     }
