@@ -44,10 +44,17 @@
                                 Anuncios
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @if(Auth::check())
                                 <a class="dropdown-item" href="{{ route('addAnuncio') }}">Añadir</a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('listAnuncios') }}">Listado</a>
+                                @if(Auth::check())
+                                @if (Auth::user()->role == 'admin')
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('categorias') }}">Añadir categoría</a>
+                                @endif
+                                @endif
+                                
                             </div>
                         </li>
                     </ul>
@@ -93,6 +100,14 @@
         </nav>
 
         @yield('content')
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+                <p class="mb-1">&copy; 2018-2019 Wallapush</p>
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">Support</a></li>
+                </ul>
+              </footer>
     </div>
 </body>
 

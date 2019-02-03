@@ -10,14 +10,14 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="" method="POST">
+                    <form action="{{ route('users.store') }}" method="POST">
                         @csrf
 
                         <div class="form-group row mt-3">
-                            <label class="col-md-2 col-form-label" for="name">Nombre</label>
-                            <div class="col-md-10">
-                                <input autofocus="true" class="form-control" type="text" id="name" name="name"/>
-                                @if ($errors->has('name'))
+                            <label class="col-md-3 col-form-label" for="name">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" autofocus>
+                                @if($errors->has('name'))
                                     <span class="invalid-feedback mt-1" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
@@ -26,10 +26,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="email">Email</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="email" id="email" name="email"/>
-                                @if ($errors->has('email'))
+                            <label class="col-md-3 col-form-label" for="email">Email</label>
+                            <div class="col-md-9">
+                                <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" id="email" name="email" value="{{ old('email') }}"/>
+                                @if($errors->has('email'))
                                     <span class="invalid-feedback  mt-1" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
@@ -38,10 +38,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="password">Contraseña</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="password" id="password" name="password"/>
-                                @if ($errors->has('password'))
+                            <label class="col-md-3 col-form-label" for="password">Contraseña</label>
+                            <div class="col-md-9">
+                                <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" id="password" name="password"/>
+                                @if($errors->has('password'))
                                     <span class="invalid-feedback  mt-1" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
@@ -50,10 +50,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="localidad">Localidad</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" id="localidad" name="localidad"/>
-                                @if ($errors->has('localidad'))
+                            <label class="col-md-3 col-form-label" for="password-confirm">Contraseña (confirmación)</label>
+                            <div class="col-md-9">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="localidad">Localidad</label>
+                            <div class="col-md-9">
+                                <input class="form-control{{ $errors->has('localidad') ? ' is-invalid' : '' }}" type="text" id="localidad" name="localidad" value="{{ old('localidad') }}"/>
+                                @if($errors->has('localidad'))
                                     <span class="invalid-feedback  mt-1" role="alert">
                                         <strong>{{ $errors->first('localidad') }}</strong>
                                     </span>
