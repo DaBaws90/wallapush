@@ -52,6 +52,7 @@
                                 @if(Auth::check())
                                 @if (Auth::user()->role == 'admin')
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('vendidos') }}">Productos vendidos</a>
                                 <a class="dropdown-item" href="{{ route('categorias') }}">Añadir categoría</a>
                                 @endif
                                 @endif

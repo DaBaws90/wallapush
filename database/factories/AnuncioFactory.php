@@ -6,7 +6,7 @@ $factory->define(App\anuncio::class, function (Faker $faker) {
     return [
         'producto' => $faker->word,
         'id_categoria' => \App\Categoria::all()->random()->id,
-        'precio' => $faker->numberBetween(1,200),
+        'precio' => $faker->numberBetween(1,25),
         'nuevo' => true,
         'descripcion' => $faker->sentence,
         'id_vendedor' => \App\User::all()->random()->id,

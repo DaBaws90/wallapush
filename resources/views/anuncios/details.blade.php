@@ -55,7 +55,7 @@
         </div>
         @if(Auth::check())
         <div class="card-footer" style="background-color: rgba(63, 63, 63, 0.8)">
-            @if($anuncio->isOwner())
+            @if($anuncio->isOwner() || Auth::user()->role == 'admin')
             <a href="/anuncios/edit/{{ $anuncio->id }}" class="btn btn-success" style="color: #fff !important; margin-right: 10px;">Editar
                 anuncio</a>
             <a href="/anuncios/remove/{{ $anuncio->id }}" class="btn btn-danger" style="color: #fff !important;">Eliminar

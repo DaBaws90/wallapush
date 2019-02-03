@@ -34,7 +34,7 @@
 						<div class="col-5" style="color: white;">
                             <form action="{{route ('valoracion')}}" method="post" style="display: inline">
                                 {{ csrf_field() }}
-                                <input type="number" class="col-4" name="valoracion">
+                                <input type="number" min="1" max="5" class="col-4" name="valoracion">
                                 <input type="hidden" name="id" value="{{$venta->id}}">
                                 <input type="submit" value="Realizar valoracion" class="btn btn-success col-6">
                             </form>

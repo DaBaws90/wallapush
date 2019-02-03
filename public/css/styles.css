@@ -111,3 +111,8 @@ ol .active {
     background-color: rgba(63, 63, 63, 0.8);
     padding: 1em;
 }
+
+.details-anuncio {
+    font-weight: bold;
+    font-size: 1.2em;
+}
