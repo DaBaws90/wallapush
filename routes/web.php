@@ -49,14 +49,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/anuncios/editAnuncio/', 'AnuncioController@editAnuncio')->name('editAnuncio');
 
     // Images
-    Route::get('/images/{path}/{attachment}', function ($path, $attachment){
-        // Lo siguiente devuelve el Path absoluto de "Storage"
-        $storagePath = Storage::disk($path)->getDriver()->getAdapter()->getPathPrefix();
-        $imageFilePath = $storagePath . $attachment;
-        if(File::exists($imageFilePath)) {
-            return Image::make($imageFilePath)->response();
-        }
-    });
+    // Route::get('/images/{path}/{attachment}', function ($path, $attachment){
+    //     // Lo siguiente devuelve el Path absoluto de "Storage"
+    //     $storagePath = Storage::disk($path)->getDriver()->getAdapter()->getPathPrefix();
+    //     $imageFilePath = $storagePath . $attachment;
+    //     if(File::exists($imageFilePath)) {
+    //         return Image::make($imageFilePath)->response();
+    //     }
+    // });
+    Route::get('/images/remove/{img}', 'ImageController@remove')->name('removeImage');
+
 
     Route::group(['middleware' => 'isAdmin'], function () {
         Route::get('/anuncios/categorias', 'AnuncioController@categorias')->name('categorias');

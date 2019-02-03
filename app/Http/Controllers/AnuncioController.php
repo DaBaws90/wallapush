@@ -87,10 +87,7 @@ class AnuncioController extends Controller
                 $prueba = "";
                 foreach ($anuncio->images as $image) {
                     Storage::disk('anuncios')->delete($image->img);
-                    // dd("anuncios/" . $image->img);
-                    // $prueba = $prueba .  $image->img;
                 }   
-                // dd($prueba);
                 $anuncio->images()->delete();
             }
             $anuncio->delete();

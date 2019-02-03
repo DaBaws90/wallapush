@@ -1,23 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h1 class="text-center text-muted"> {{ __("Nuevo anuncio") }} </h1>
-        <form method="POST">
-            {{ csrf_field() }}
-            <div class="form-group">
-                <label for="categoria" class="col-md-2 control-label">{{ __("Categoría") }}</label>
-                <select id="categoria" name="id_categoria">
-                    @foreach ($categorias as $categoria)
-                    <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </form>
-    </div>
-</div> --}}
-
 <div class="container">
     <div class="card addFormAnuncio">
         <div class="card-header">
