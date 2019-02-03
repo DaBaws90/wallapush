@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\categoria;
 use App\User;
+use App\Transaction;
 
 class anuncio extends Model
 {
@@ -18,5 +19,9 @@ class anuncio extends Model
 
     public function vendedor(){
         return $this->belongsTo(User::class, 'id_vendedor');
+    }
+
+    public function transaccion(){
+        return $this->hasOne(Transacction::class, 'id_anuncio');
     }
 }

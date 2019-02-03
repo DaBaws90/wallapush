@@ -11,7 +11,7 @@
             <p class="card-text">Categoría: {{ $anuncio->categoria->nombre }}</p>
         </div>
         <div class="card-footer">
-        <a href="#" class="btn btn-primary" style="color: #fff !important;">Comprar ({{ $anuncio->precio }} €)</a>
+            <a href="{{ route('confirmarcompra', [ 'id_anuncio' => $anuncio->id ]) }}" class="btn btn-primary" style="color: #fff !important;">Comprar ({{ $anuncio->precio }} €)</a>
         </div>
     </div>
 </div>

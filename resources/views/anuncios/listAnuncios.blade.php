@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="grid-container">
                 @forelse ($anuncios as $anuncio)
-                <a href="/anuncios/details/{{ $anuncio->id }}">
+                <a href="/wallapush/public/anuncios/details/{{ $anuncio->id }}">
                     <div class="card anuncio">
                         <img class="card-img-top" src="../anuncios/default.png" alt="Card image cap">
                         <div class="card-body">

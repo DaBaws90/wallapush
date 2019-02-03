@@ -10,9 +10,9 @@ class Transaction extends Model
 {
     protected $table = "transactions";
 
-    protected $fillable = [];
+    protected $fillable = ['id_anuncio', 'id_comprador', 'valoracion'];
 
-    public function anuncion(){
+    public function anuncio(){
         return $this->belongsTo(anuncio::class, 'id_anuncio');
     }
 
