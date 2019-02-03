@@ -1,0 +1,113 @@
+body {
+    min-height: 100vh;
+}
+
+.nav {
+    margin-bottom: 3em;
+}
+
+.pagination {
+    margin-top: 1rem;
+}
+
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+a:hover {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.addFormCategoria .card-body,
+.addFormAnuncio .card-body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.form-group {
+    padding: 0 20px 0 20px;
+    margin: 0;
+}
+
+.form:first-child {
+    padding-top: 20px;
+}
+
+.form .btn-anuncio,
+.btn-categoria {
+    margin-bottom: 20px;
+    width: 20%;
+}
+
+.alert>p {
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-gap: 10px;
+}
+
+.anuncio {
+    height: 100%;
+    border: 0 !important;
+}
+
+.image {
+    position: relative;
+    overflow: hidden;
+}
+
+.image img {
+    transition: all .5s ease-in-out;
+}
+
+.image:hover img {
+    transition: all .5s ease-in-out;
+    transform: scale(1.1);
+}
+
+.image:hover h5 {
+    bottom: -80px;
+    opacity: 0;
+}
+
+.titulo-producto {
+    background-color: rgba(63, 63, 63, 0.8);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 10px;
+    margin: 0;
+    transition: all .5s ease-in-out;
+}
+
+.titulo-producto2 {
+    background-color: rgba(63, 63, 63, 0.8);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    width: 100%;
+    padding: 15px 10px 15px 20px;
+    margin: 0;
+}
+
+.li-image {
+    background-color: rgb(189, 189, 189) !important;
+}
+
+ol .active {
+    background-color: #707070 !important;
+}
+
+.guardar-anuncio {
+    background-color: rgba(63, 63, 63, 0.8);
+    padding: 1em;
+}

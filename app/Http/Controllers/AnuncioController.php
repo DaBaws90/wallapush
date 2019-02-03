@@ -92,8 +92,8 @@ class AnuncioController extends Controller
             }
             $anuncio->delete();
         }
-        return redirect(route('listAnuncios'));
-        // return back()->with('message', ['success', __('Anuncio eliminado correctamente')]);
+        // return redirect(route('listAnuncios'));
+        return redirect(route('listAnuncios'))->with('message', ['success', __('Anuncio eliminado correctamente')]);
     }
 
     public function categorias() {

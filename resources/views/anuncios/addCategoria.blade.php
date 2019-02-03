@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('links')
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card addFormCategoria">
