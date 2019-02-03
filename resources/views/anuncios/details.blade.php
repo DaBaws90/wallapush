@@ -6,7 +6,8 @@
 
 @section('content')
 <div class="container">
-<a href="{{ url()->previous() }}" class="btn btn-primary" style="color: #fff !important; margin-bottom: 10px;">Volver al listado</a>
+    <a href="{{ url()->previous() }}" class="btn btn-primary" style="color: #fff !important; margin-bottom: 10px;">Volver
+        al listado</a>
     <div class="card">
         {{-- <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap" style="height: 50vh; width: auto;">
         --}}
@@ -49,6 +50,11 @@
             @else
             <div class="dropdown-divider"></div>
             <p class="card-text details-anuncio">Vendedor: {{ $anuncio->vendedor->name }}</p>
+            @if($anuncio->transaccion)
+            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Comprador: {{
+                $anuncio->transaccion->comprador->name }}</p>
+            <div class="dropdown-divider"></div>
+            @endif
             <p class="card-text details-anuncio">Localidad: {{
                 $anuncio->vendedor->localidad }}</p>
             @endif
@@ -61,7 +67,8 @@
             <a href="/anuncios/remove/{{ $anuncio->id }}" class="btn btn-danger" style="color: #fff !important;">Eliminar
                 anuncio</a>
             @else
-            <a href="{{ route('confirmarcompra', [ 'id_anuncio' => $anuncio->id ]) }}" class="btn btn-primary" style="color: #fff !important;">Comprar ({{ $anuncio->precio }} €)</a>
+            <a href="{{ route('confirmarcompra', [ 'id_anuncio' => $anuncio->id ]) }}" class="btn btn-primary" style="color: #fff !important;">Comprar
+                ({{ $anuncio->precio }} €)</a>
             @endif
         </div>
         @else

@@ -75,5 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('anuncios/storeCategoria', 'AnuncioController@storeCategoria')->name('storeCategoria');
         Route::get('/anuncios/vendidos/', 'AnuncioController@vendidos')->name('vendidos');
         Route::post('/anuncios/filtro/fechas', 'AnuncioController@filtroFechas')->name('filtroFechas');
+
+        // PDF
+        Route::get('/anuncios/pdf/fechas/{id}/{fecha_inicio}/{fecha_fin}}', 'AnuncioController@pdfFechas')->name('pdfFechas');
     });
 });

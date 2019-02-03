@@ -8,8 +8,9 @@ $factory->define(App\anuncio::class, function (Faker $faker) {
         'id_categoria' => \App\Categoria::all()->random()->id,
         'precio' => $faker->numberBetween(1,25),
         'nuevo' => true,
-        'descripcion' => $faker->sentence,
+        'descripcion' => $faker->text(500, 1000),
         'id_vendedor' => \App\User::all()->random()->id,
-        'vendido' => false,
+        'vendido' => rand(0, 1),
+        'created_at' => $faker->dateTimeThisYear('now'),
     ];
 });

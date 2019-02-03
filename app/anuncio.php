@@ -23,7 +23,7 @@ class anuncio extends Model
     }
 
     public function transaccion(){
-        return $this->hasOne(Transacction::class, 'id_anuncio');
+        return $this->hasOne(Transaction::class, 'id_anuncio');
     }
     
     public function images() {

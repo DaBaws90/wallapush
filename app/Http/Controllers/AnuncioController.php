@@ -8,6 +8,8 @@ use App\categoria;
 use App\anuncio;
 use App\image;
 use Illuminate\Support\Facades\Storage;
+use App\Transaction;
+use PDF;
 
 class AnuncioController extends Controller
 {
@@ -89,6 +91,9 @@ class AnuncioController extends Controller
                 }   
                 $anuncio->images()->delete();
             }
+            if($anuncio->transaccion) {
+                $anuncio->transaccion->delete();
+            }
             $anuncio->delete();
             return redirect(route('listAnuncios'))->with('message', ['success', __('Anuncio eliminado correctamente')]);
         }
@@ -118,6 +123,21 @@ class AnuncioController extends Controller
     public function filtroFechas(Request $request) {
         $anuncios = anuncio::where('vendido', 1)->where('id_categoria', $request->categoria)->whereBetween('created_at', [$request->fecha_inicio, $request->fecha_fin . ' 23:59:59'])->paginate(6);
         $categorias = categoria::orderBy('nombre')->get();
-        return view('anuncios.vendidos', compact('anuncios', 'categorias'));
+        $categoria = $request->categoria;
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_fin = $request->fecha_fin;
+        return view('anuncios.filtrado', compact('anuncios', 'categorias', 'categoria', 'fecha_inicio', 'fecha_fin'));
+    }
+
+    public function pdfFechas($id, $fecha_inicio, $fecha_fin) {
+        $anuncios = anuncio::where('vendido', 1)->where('id_categoria', $id)->whereBetween('created_at', [$fecha_inicio, $fecha_fin . ' 23:59:59'])->get();
+        $categoria = categoria::find(intval($id));
+        $data = [
+            'anuncios' => $anuncios,
+            'categoria' => $categoria,
+        ];
+        $pdf = PDF::loadView('anuncios.pdfFechas', $data);
+        // return $pdf->download($categoria->nombre . '(Solicitudes ' . $fecha_inicio . '_' . $fecha_fin . ').pdf');
+        return $pdf->stream();
     }
 }
