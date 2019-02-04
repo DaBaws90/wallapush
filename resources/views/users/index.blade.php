@@ -5,14 +5,17 @@
     <div class="row">
         <div class="col-md-10 offset-md-1 text-center">
             <h1 class="text-center text-muted mt-5 mb-5"> {{ __("Listado de usuarios") }} </h1>
-            <div class="mb-4">
+            <div class="mb-3">
                 <a href="{{ route('users.create') }}" class="btn btn-outline-primary btn-block">Añadir usuario</a>
             </div>
-            <div class="mb-4">
-                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm" style="color: black;">Ajustes de saldo</button>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-primary btn-block" form="myForm">Ajustes de saldo</button>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
                 <a href="{{ route('disableUsers') }}" class="btn btn-outline-primary btn-block">Activar/Desactivar usuarios</a>
+            </div>
+            <div class="mb-3">
+                <a href="{{ route('orderBySales') }}" class="btn btn-outline-primary btn-block">Ordenar por ventas</a>
             </div>
             @if($errors->any())
                 @foreach($errors->all() as $error)
@@ -44,7 +47,7 @@
                         <th scope="col">Habilitado</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                        <!-- <th scope="col"></th> -->
+                        <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -53,7 +56,7 @@
                     @if($user->role != "admin")
                     <tr scope="row" class="pt-2 mt-3">                        
                         <td><input type="checkbox" class="form-control{{ $errors->has('id_list') ? ' is-invalid' : '' }}" name="id_list[]" value="{{ $user->id }}"></td>
-                        <td class="pt-2 mt-2">{{ $user->name }}</td>
+                        <td>{{ $user->name }}</td>
                         <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>
                         <td>{{ $user->saldo > 0 ? $user->saldo : 'Sin saldo' }}</td>
                         <td>{{ $user->actived ? 'Sí' : 'No'}}</td>
