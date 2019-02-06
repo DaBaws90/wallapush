@@ -119,10 +119,10 @@ class AnuncioController extends Controller
             'buscador' => 'required',
         ]);
         $nombre = $req->buscador;
-        $anuncios = anuncio::where('producto', 'LIKE', "%$nombre%")->orWhere('descripcion', 'LIKE', "%$nombre%")->paginate(6);
+        $anuncios = anuncio::where('producto', 'LIKE', "%$nombre%")->orWhere('descripcion', 'LIKE', "%$nombre%")->orWhere('vendido', False)->paginate(6);
         return view('anuncios.listAnuncios', compact('anuncios'));
     }
-    
+
     public function vendidos() {
         $anuncios = anuncio::where('vendido', True)->orderBy('id', 'desc')->paginate(6);
         $categorias = categoria::orderBy('nombre')->get();

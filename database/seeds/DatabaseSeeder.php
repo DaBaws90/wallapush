@@ -20,5 +20,4 @@ class DatabaseSeeder extends Seeder
         factory(\App\image::class, 200)->create();
         factory(\App\Transaction::class, 25)->create();
     }
-    
 }
