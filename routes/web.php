@@ -19,7 +19,7 @@ Route::get('profile', function () {
     // Only verified users may enter...
     $user = auth()->user();
     return view('users.editView', compact('user'));
-})->middleware('verified');
+})->middleware('verified')->name('profile');
 
 Route::group(['middleware' => 'auth'], function () {
 

@@ -86,6 +86,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if(auth()->user()->role != 'admin')
+                                    <a class="nav-link" href="{{ route('profile') }}">Perfil</a>
+                                @endif
                                 <a class="nav-link" href="{{ route('valorarcompra') }}">Valorar compras</a>
                                 <a class="nav-link" href="{{ route('compras') }}">Compras realizadas</a>
                                 <a class="nav-link" href="{{ route('ventas') }}">Ventas realizadas</a>
