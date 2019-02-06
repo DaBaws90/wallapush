@@ -119,7 +119,7 @@ class AnuncioController extends Controller
             'buscador' => 'required',
         ]);
         $nombre = $req->buscador;
-        $anuncios = anuncio::where('producto', 'LIKE', "%$nombre%")->orWhere('descripcion', 'LIKE', "%$nombre%")->orWhere('vendido', False)->paginate(6);
+        $anuncios = anuncio::where('producto', 'LIKE', "%$nombre%")->orWhere('descripcion', 'LIKE', "%$nombre%")->where('vendido', False)->paginate(6);
         return view('anuncios.listAnuncios', compact('anuncios'));
     }
 
