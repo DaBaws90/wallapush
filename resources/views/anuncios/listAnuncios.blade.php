@@ -5,6 +5,10 @@
     <div class="card">
         <div class="card-header" style="text-align: center; background-color: #353535; color: #fff;">
             <h1>Anuncios</h1>
+            <form action="{{ route('listAnunciosBuscador') }}" class="form-inline">{{ csrf_field() }}
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input class="form-control form-control-sm ml-3 w-75" name="buscador" type="text" placeholder="Search" aria-label="Search">
+            </form>
         </div>
         <div class="card-body" style="background-color: #b0b4ba;">
             <div class="grid-container">
@@ -40,7 +44,7 @@
         </div>
     </div>
     @if($anuncios->count())
-    {{ $anuncios->links() }}
+        {{ $anuncios->links() }}
     @endif
 </div>
 

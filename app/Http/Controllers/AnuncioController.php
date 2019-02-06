@@ -107,4 +107,13 @@ class AnuncioController extends Controller
         categoria::create(request()->all());
         return back()->with('message', ['success', __("Categoría añadida con éxito")]);
     }
+
+    public function buscador(Request $req){
+        $req->validate([
+            'buscador' => 'required',
+        ]);
+        $nombre = $req->buscador;
+        $anuncios = anuncio::where('producto', 'LIKE', "%$nombre%")->paginate(6);
+        return view('anuncios.listAnuncios', compact('anuncios'));
+    }
 }

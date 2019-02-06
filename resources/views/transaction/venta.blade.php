@@ -37,7 +37,7 @@
                             </form>
                         </div>
                         <div class="col-2" style="color: white;">
-                            <a href="" class="btn btn-danger">Cancelar compra</a>
+						<a href="{{route ('listAnuncios')}}" class="btn btn-danger">Cancelar compra</a>
                         </div>
 					</div>
 				</div>

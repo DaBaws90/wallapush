@@ -46,7 +46,10 @@ class TransactionController extends Controller
             $vendedor->save();
 
             return redirect()->route('listAnuncios')->with('success', 'Se ha realizado la compra con exsito.');
-        } else {
+        } elseif ($comprador->id == $anuncio->id_vendedor) {
+            $error = "Este producto es suyo, no lo puede comprar.";
+            return view('transaction.venta', compact('anuncio', 'error'));
+        } elseif ($saldo<$precio) {
             $error = "El saldo de su cuenta es inferior al precio del producto que desea comprar.";
             return view('transaction.venta', compact('anuncio', 'error'));
         }
@@ -73,7 +76,6 @@ class TransactionController extends Controller
         $user = Auth::user();
         $transacciones = Transaction::where('id_comprador', $user->id)->with('anuncio')->get();
         return view('transaction.compras', compact('transacciones'));
-        //comtrolar boton comprar si ya esta vendido el producto y que un vendedor no pueda comprar su producto, comprobar numero e en valoracion
     }
 
     public function ventas(){

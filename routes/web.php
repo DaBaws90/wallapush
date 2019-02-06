@@ -39,6 +39,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 // ANUNCIOS
 Route::get('/anuncios/list', 'AnuncioController@listAnuncios')->name('listAnuncios');
+Route::get('/anuncios/listbuscador', 'AnuncioController@buscador')->name('listAnunciosBuscador');
 Route::get('/anuncios/details/{id}', 'AnuncioController@detailsAnuncio')->name('detailAnuncio');
 
 Route::group(['middleware' => 'auth'], function () {
