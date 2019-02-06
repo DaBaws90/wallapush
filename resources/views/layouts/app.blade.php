@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('links')
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
 </head>
@@ -51,12 +52,18 @@
                                 @if(Auth::check())
                                 @if (Auth::user()->role == 'admin')
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('vendidos') }}">Productos vendidos</a>
                                 <a class="dropdown-item" href="{{ route('categorias') }}">Añadir categoría</a>
                                 @endif
                                 @endif
                                 
                             </div>
                         </li>
+                        @if(Auth::check())
+                            @if(auth()->user()->role == 'admin')
+                            <li><a class="nav-item nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a></li>
+                            @endif
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -101,13 +108,13 @@
 
         @yield('content')
         <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">&copy; 2018-2019 Wallapush</p>
-                <ul class="list-inline">
-                  <li class="list-inline-item"><a href="#">Privacy</a></li>
-                  <li class="list-inline-item"><a href="#">Terms</a></li>
-                  <li class="list-inline-item"><a href="#">Support</a></li>
-                </ul>
-              </footer>
+            <p class="mb-1">&copy; 2018-2019 Wallapush</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </footer>
     </div>
 </body>
 

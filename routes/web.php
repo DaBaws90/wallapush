@@ -17,6 +17,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('profile', function () {
     // Only verified users may enter...
+    $user = auth()->user();
+    return view('users.editView', compact('user'));
 })->middleware('verified');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -27,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/users/disableUsersPost', 'UserController@disableUsersPost')->name('disableUsersPost');
     Route::post('/users/setSaldo', 'UserController@setSaldo')->name('setSaldo');
     Route::post('/users/{id}/disable', 'UserController@disable')->name('disableUser');
+    Route::get('/users/orderBySales', 'UserController@userSortBySales')->name('orderBySales');
     Route::resource('users','UserController');
 
 });
@@ -74,5 +77,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isAdmin'], function () {
         Route::get('/anuncios/categorias', 'AnuncioController@categorias')->name('categorias');
         Route::post('anuncios/storeCategoria', 'AnuncioController@storeCategoria')->name('storeCategoria');
+        Route::get('/anuncios/vendidos/', 'AnuncioController@vendidos')->name('vendidos');
+        Route::post('/anuncios/filtro/fechas', 'AnuncioController@filtroFechas')->name('filtroFechas');
+
+        // PDF
+        Route::get('/anuncios/pdf/fechas/{id}/{fecha_inicio}/{fecha_fin}}', 'AnuncioController@pdfFechas')->name('pdfFechas');
     });
 });

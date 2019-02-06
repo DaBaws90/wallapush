@@ -66,6 +66,26 @@
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
+                <div style="margin-right:3%" class="top-right links">
+                    @auth
+                    <a href="{{ url('/home') }}">Home</a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+            <!-- @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
@@ -77,15 +97,19 @@
                         @endif
                     @endauth
                 </div>
-            @endif
+            @endif -->
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Wallapush
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
+                    @if(Auth::check())
+                        @if(auth()->user()->role == 'admin')
+                            <a href="{{ route('users.index') }}">Usuarios</a>
+                        @endif
+                    @endif
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://nova.laravel.com">Nova</a>

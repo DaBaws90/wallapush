@@ -5,9 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\anuncio;
 
 class UserController extends Controller
 {
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('isAdmin')->except('update');
+
+        // $this->middleware('auth')->only('users.edit', 'users.update');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,22 +51,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $messages = [
-        //     'name.required' => 'El campo nombre es obligatorio',
-        // ];
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'localidad' => 'max:191',
         ]);
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string|max:191',
-        //     'email' => 'required|string|email|max:191|unique:users',
-        //     'password' => 'required|string|min:6|confirmed',
-        //     'localidad' => 'string|max:191',
-        // ]);
-        // dd($request);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -88,7 +92,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('users.edit', compact('user', ['user' => User::find($id)]));
+        $user = User::find($id);
+        return view('users.editView', compact('user'));
     }
 
     /**
@@ -100,8 +105,38 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,'.$request->id,
+            'localidad' => 'max:191',
+        ]);
+        $user = User::find($id);
+        $success = $user->update($request->all());
+        if($success){
+            if(auth()->user()->role == 'admin'){
+                return redirect()->route('users.index')->with('message', ['success', 'Se modificaron los datos con éxito']);
+            }
+            else{
+                return redirect('/profile')->with('message', ['success', 'Se modificó su perfil con éxito']);
+            }
+        }
+        else{
+            redirect()->route('users.edit', $id)->with('message', ['danger', 'No se pudieron modificar los datos']);
+        }
+
+
     }
+
+    // /**
+    //  * Show the form for updating current user's profile.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function profile()
+    // {
+    //     $user = auth()->user();
+    //     return view('users.editView', compact('user'));
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -233,13 +268,15 @@ class UserController extends Controller
         $users = User::all();
         $sortUsers = array();
         $sortBySales = array();
+        $total = 0;
         
         foreach ($users as $user) {
             $sales = Anuncio::where('id_vendedor', $user->id)->where('vendido', true)->get();
             foreach ($sales as $sale) {
                 $total += $sale->precio;
             }
-            array_push($sortUsers, ['user', ['userName' => $user->name, 'sales' => $total]]);
+            array_push($sortUsers, ['userName' => $user->name, 'sales' => $total]
+        );
             $total = 0;
         }
         $sortBySales = collect($sortUsers)->sortBy('sales')->reverse()->toArray();

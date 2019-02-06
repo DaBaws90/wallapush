@@ -14,17 +14,13 @@
     @endif
     <div class="card">
         <div class="card-header" style="text-align: center; background-color: #353535; color: #fff;">
-            <h1>Anuncios</h1>
-            <form action="{{ route('listAnunciosBuscador') }}" class="form-inline">{{ csrf_field() }}
-                <i class="fas fa-search" aria-hidden="true"></i>
-                <input class="form-control form-control-sm ml-3 w-75" name="buscador" type="text" placeholder="Search" aria-label="Search">
-            </form>
+        <h1>Anuncios</h1>
+        <h4>Periodo del {{ $fecha_inicio }} al {{ $fecha_fin }}</h4>
         </div>
         <div class="card-body" style="background-color: #b0b4ba;">
             <div class="grid-container">
                 @forelse ($anuncios as $anuncio)
                 <a href="/anuncios/details/{{ $anuncio->id }}">
-                    {{-- <h1>{{ $anuncio->image }}</h1> --}}
                     <div class="card anuncio">
                         <div class="image">
                             @if($anuncio->image())
@@ -40,10 +36,17 @@
                             <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Categoría: {{
                                 $anuncio->categoria->nombre }}</p>
                             <div class="dropdown-divider"></div>
-                            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Vendedor: {{
-                                $anuncio->vendedor->name }}</p>
                             <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Localidad: {{
                                 $anuncio->vendedor->localidad }}</p>
+                            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Fecha: {{
+                                    $anuncio->created_at }}</p>
+                            <div class="dropdown-divider"></div>
+                            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Vendedor: {{
+                                $anuncio->vendedor->name }}</p>
+                            @if($anuncio->transaccion)
+                            <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Comprador: {{
+                                $anuncio->transaccion->comprador->name }}</p>
+                            @endif
                         </div>
                         <div class="card-footer" style="background-color: rgba(63, 63, 63, 0.8); color: #fff;">
                             <p class="card-text" style="font-weight: bold; font-size: 1.2em;"> {{ $anuncio->precio }} €</p>
@@ -56,10 +59,11 @@
                 </div>
                 @endforelse
             </div>
+            <a href="{{ route('pdfFechas', ['id' => $categoria, 'fecha_inicio' => $fecha_inicio, 'fecha_fin' => $fecha_fin]) }}" class="btn btn-info pull-right" style="margin-top: 20px; color: #fff !important;"> {{ __("Descargar PDF") }} </a>
         </div>
     </div>
     @if($anuncios->count())
-        {{ $anuncios->links() }}
+    {{ $anuncios->links() }}
     @endif
 </div>
 

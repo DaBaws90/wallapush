@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('links')
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
     @if(session('deleteimg'))
@@ -20,7 +24,7 @@
     @endif
     <div class="card" style="margin-bottom: 20px;">
         @if($anuncio->images->count() > 0)
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="margin: 20px 0 20px 0;">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 @foreach ($anuncio->images as $image)
                 <li class="li-image" data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
@@ -46,8 +50,15 @@
         <img class="card-img-top" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap" style="height: 50vh; width: auto;">
         @endif
         <div class="guardar-anuncio">
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="color: #fff !important; float: right; margin-right: 20px;">Eliminar
-                imágenes</button>
+            <div class="row">
+                <div class="col">
+                    <h5 style="color: #fff; font-weight: bold; margin: 0; font-size: 2em;">{{ $anuncio->producto }}</h5>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="color: #fff !important; float: right; margin-right: 20px;">Eliminar
+                        imágenes</button>
+                </div>
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
