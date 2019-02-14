@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\anuncio;
+use App\Transaction;
 
 class UserController extends Controller
 {
@@ -30,7 +31,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(5);
-        return view('users.index',compact("users"));
+        return view('users.index', compact("users"));
     }
 
     /**
@@ -64,10 +65,9 @@ class UserController extends Controller
             'localidad' => $request->localidad,
         ]);
 
-        if($user){
+        if ($user) {
             return redirect()->route('users.index')->with('message', ['success', 'Usuario creado correctamente']);
-        }
-        else{
+        } else {
             return redirect()->route('users.index')->with('message', ['danger', 'No se pudo crear el usuario']);
         }
     }
@@ -107,20 +107,18 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,'.$request->id,
+            'email' => 'required|string|email|max:191|unique:users,email,' . $request->id,
             'localidad' => 'max:191',
         ]);
         $user = User::find($id);
         $success = $user->update($request->all());
-        if($success){
-            if(auth()->user()->role == 'admin'){
+        if ($success) {
+            if (auth()->user()->role == 'admin') {
                 return redirect()->route('users.index')->with('message', ['success', 'Se modificaron los datos con éxito']);
-            }
-            else{
+            } else {
                 return redirect('/profile')->with('message', ['success', 'Se modificó su perfil con éxito']);
             }
-        }
-        else{
+        } else {
             redirect()->route('users.edit', $id)->with('message', ['danger', 'No se pudieron modificar los datos']);
         }
 
@@ -148,11 +146,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $destroy = User::destroy($id);
-        if ($destroy){
-            return redirect()->route('users.index')->with('message', ['success' , 'Usuario '.$user->name.' eliminado correctamente']);
-        }
-        else{
-            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo eliminar el usuario']);
+        if ($destroy) {
+            return redirect()->route('users.index')->with('message', ['success', 'Usuario ' . $user->name . ' eliminado correctamente']);
+        } else {
+            return redirect()->route('users.index')->with('message', ['danger', 'No se pudo eliminar el usuario']);
         }
     }
 
@@ -165,20 +162,19 @@ class UserController extends Controller
     public function disable($id)
     {
         $user = User::find($id);
-        if($user->actived){
+        if ($user->actived) {
             $user->actived = false;
-        }
-        else{
+        } else {
             $user->actived = true;
         }
         $user->save();
-        if($user){
+        if ($user) {
             return redirect()->route('users.index')->with(
-                'message', ['success' , 'Usuario deshabilitado/habilitados correctamente']
+                'message',
+                ['success', 'Usuario deshabilitado/habilitados correctamente']
             );
-        }
-        else{
-            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo deshabilitar/habilitar el usuario']);
+        } else {
+            return redirect()->route('users.index')->with('message', ['danger', 'No se pudo deshabilitar/habilitar el usuario']);
         }
     }
 
@@ -205,22 +201,21 @@ class UserController extends Controller
             'id_list' => 'required',
         ]);
         $users = User::whereIn('id', $request->id_list)->get();
-        foreach($users as $user){
-            if($user->actived){
+        foreach ($users as $user) {
+            if ($user->actived) {
                 $user->actived = false;
-            }
-            else{
+            } else {
                 $user->actived = true;
             }
             $user->save();
         }
-        if($users){
+        if ($users) {
             return redirect()->route('users.index')->with(
-                'message', ['success' , 'Usuarios deshabilitados/habilitados correctamente']
+                'message',
+                ['success', 'Usuarios deshabilitados/habilitados correctamente']
             );
-        }
-        else{
-            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudieron deshabilitar/habilitar los usuarios']);
+        } else {
+            return redirect()->route('users.index')->with('message', ['danger', 'No se pudieron deshabilitar/habilitar los usuarios']);
         }
     }
 
@@ -251,35 +246,55 @@ class UserController extends Controller
         // ]);
         $users = array();
         foreach ($request->users as $user) {
-            $usuario=User::find($user);
+            $usuario = User::find($user);
             $usuario->saldo = $request->saldo;
             $usuario->save();
         }
-        if($request->users){
-            return redirect()->route('users.index')->with('message', ['success' , 'Saldo(s) correctamente establecido(s)']
-            );
-        }
-        else{
-            return redirect()->route('users.index')->with('message', ['danger' , 'No se pudo establecer el saldo']);
+        if ($request->users) {
+            return redirect()->route('users.index')->with('message', ['success', 'Saldo(s) correctamente establecido(s)']);
+        } else {
+            return redirect()->route('users.index')->with('message', ['danger', 'No se pudo establecer el saldo']);
         }
     }
 
-    public function userSortBySales(){
+    public function userSortBySales()
+    {
         $users = User::all();
         $sortUsers = array();
         $sortBySales = array();
         $total = 0;
-        
+
         foreach ($users as $user) {
             $sales = Anuncio::where('id_vendedor', $user->id)->where('vendido', true)->get();
             foreach ($sales as $sale) {
                 $total += $sale->precio;
             }
-            array_push($sortUsers, ['userName' => $user->name, 'sales' => $total]
-        );
+            array_push($sortUsers, ['userName' => $user->name, 'sales' => $total]);
             $total = 0;
         }
         $sortBySales = collect($sortUsers)->sortBy('sales')->reverse()->toArray();
         return view('users.sortBySales', compact('sortBySales'));
+    }
+
+    public function userSortByValoration()
+    {
+        $collection = User::all();
+        $sortUsers = array();
+        $sortByValoration = array();
+        $total = 0;
+        $user = User::find(11);
+        foreach ($collection as $user) {
+            foreach ($user->sold as $anuncio) {
+                // foreach ($anuncios as $anuncio) {
+                    $total += $anuncio->transaccion->valoracion;
+                // }
+                // $total += $transaccion->valoracion;
+            }
+            array_push($sortUsers, ['userName' => $user->name, 'valorations' => $total]);
+            $total = 0;
+        }
+
+        $sortByValoration = collect($sortUsers)->sortBy('valorations')->reverse()->toArray();
+        return view('users.sortByValoration', compact('sortByValoration'));
     }
 }
