@@ -7,7 +7,11 @@
 		    <div class="card-body">
                 <div class="grid-container">
                     <div class="card anuncio">
-                        <img class="card-img-top" src="../transacciones->anuncio/default.png" alt="Card image cap">
+                        @if ($transaccion->anuncio->images->count() > 0)
+                        <img class="card-img-top" style="width: 100px; height: 70px;" src="{{ url('storage/anuncios/' . $transaccion->anuncio->image()->img) }}" alt="Card image cap">
+                        @else
+                        <img class="card-img-top" style="width: 100px; height: 70px;" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap">
+                        @endif
                         <div class="card-body">
                             <div class="card-title">{{ $transaccion->anuncio->producto }}</div>
                             <p class="card-text">{{ $transaccion->anuncio->descripcion }}</p>

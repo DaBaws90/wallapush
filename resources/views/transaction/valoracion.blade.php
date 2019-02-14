@@ -16,7 +16,12 @@
                 </div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-2"><img class="img-responsive" src="http://placehold.it/100x70">
+						<div class="col-2">
+							@if ($venta->anuncio->images->count() > 0)
+							<img class="card-img-top" style="width: 100px; height: 70px;" src="{{ url('storage/anuncios/' . $venta->anuncio->image()->img) }}" alt="Card image cap">
+							@else
+							<img class="card-img-top" style="width: 100px; height: 70px;" src="{{ url('storage/anuncios/' . 'default.png') }}" alt="Card image cap">
+							@endif
 						</div>
 						<div class="col-8">
 							<h4 class="product-name"><strong>{{ $venta->anuncio->producto}}</strong></h4><h4><small>{{ $venta->anuncio->descripcion }}</small></h4>
