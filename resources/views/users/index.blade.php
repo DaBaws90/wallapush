@@ -69,11 +69,13 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                @csrf
-                                <input name="_method" type="hidden" value="DELETE">
-                                <button onclick="return confirm('Eliminar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
-                            </form>
+                            @if($user->sold->count() == 0 && $user->transacciones->count() == 0)
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <button onclick="return confirm('Eliminar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @endif
