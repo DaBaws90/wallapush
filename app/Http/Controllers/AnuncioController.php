@@ -23,6 +23,11 @@ class AnuncioController extends Controller
         return view('anuncios.listAnuncios', compact('anuncios'));
     }
 
+    public function listPorCategoria($categoria) {
+        $anuncios = anuncio::where('vendido', False)->where('id_categoria', $categoria)->orderBy('id', 'desc')->paginate(6);
+        return view('anuncios.listAnuncios', compact('anuncios'));
+    }
+
     public function detailsAnuncio($id) {
         $anuncio = anuncio::find($id);
         $images = $anuncio->images();
@@ -49,7 +54,7 @@ class AnuncioController extends Controller
                 ]);
            }
         }
-       
+
         return back()->with('message', ['success', __("Anuncio creado correctamente")]);
     }
 
@@ -59,7 +64,7 @@ class AnuncioController extends Controller
             $categorias = categoria::orderBy('nombre')->get();
             return view('anuncios.editAnuncio', compact('anuncio', 'categorias'));
         }
-        return back()->with('message', ['success', __("No tienes acceso a este anuncio")]);   
+        return back()->with('message', ['success', __("No tienes acceso a este anuncio")]);
     }
 
     public function editAnuncio(Request $request) {
@@ -78,7 +83,7 @@ class AnuncioController extends Controller
                 ]);
            }
         }
-        return back()->with('message', ['success', __("Anuncio editado con éxito")]);   
+        return back()->with('message', ['success', __("Anuncio editado con éxito")]);
     }
 
     public function remove($id) {
@@ -88,7 +93,7 @@ class AnuncioController extends Controller
                 $prueba = "";
                 foreach ($anuncio->images as $image) {
                     Storage::disk('anuncios')->delete($image->img);
-                }   
+                }
                 $anuncio->images()->delete();
             }
             if($anuncio->transaccion) {
@@ -99,7 +104,7 @@ class AnuncioController extends Controller
         }
         return redirect(route('listAnuncios'))->with('message', ['danger', __('No puedes eliminar este anuncio')]);
         // return redirect(route('listAnuncios'));
-        
+
     }
 
     public function categorias() {
