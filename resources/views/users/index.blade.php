@@ -17,6 +17,9 @@
             <div class="mb-3">
                 <a href="{{ route('orderBySales') }}" class="btn btn-outline-primary btn-block">Ordenar por ventas</a>
             </div>
+            <div class="mb-3">
+                    <a href="{{ route('orderByValoration') }}" class="btn btn-outline-primary btn-block">Ordenar por valoraciones</a>
+                </div>
             @if($errors->any())
                 @foreach($errors->all() as $error)
                 <div class="alert alert-danger alert-dismissible fade show">
@@ -27,16 +30,16 @@
                 </div>
                 @endforeach
             @endif
-            @if(session('message')) 
-            <div class="alert alert-{{ session('message')[0] }} alert-dismissible fade show"> 
+            @if(session('message'))
+            <div class="alert alert-{{ session('message')[0] }} alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                {{ session('message')[1] }} 
-            </div> 
+                {{ session('message')[1] }}
+            </div>
             @endif
             <form action="{{ route('saldo') }}" method="POST" id="myForm">
-            @csrf 
+            @csrf
             <table class="table" id="example">
                 <thead>
                     <tr scope="row">
@@ -54,7 +57,7 @@
                 <tbody>
                 @forelse($users as $user)
                     @if($user->role != "admin")
-                    <tr scope="row" class="pt-2 mt-3">                        
+                    <tr scope="row" class="pt-2 mt-3">
                         <td><input type="checkbox" class="form-control{{ $errors->has('id_list') ? ' is-invalid' : '' }}" name="id_list[]" value="{{ $user->id }}"></td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>

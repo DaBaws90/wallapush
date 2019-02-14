@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/users/setSaldo', 'UserController@setSaldo')->name('setSaldo');
     Route::post('/users/{id}/disable', 'UserController@disable')->name('disableUser');
     Route::get('/users/orderBySales', 'UserController@userSortBySales')->name('orderBySales');
+    Route::get('/users/orderByValoration', 'UserController@userSortByValoration')->name('orderByValoration');
     Route::resource('users','UserController');
 
 });

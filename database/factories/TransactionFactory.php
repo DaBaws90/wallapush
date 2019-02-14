@@ -6,7 +6,7 @@ $factory->define(App\Transaction::class, function (Faker $faker) {
 
     return [
         'id_anuncio' => function () {
-            $anuncio = \App\anuncio::find(\App\anuncio::all()->random()->id);
+            $anuncio = \App\anuncio::find(\App\anuncio::where('vendido', false)->get()->random()->id);
             $anuncio->vendido = true;
             $anuncio->save();
             return $anuncio->id;
