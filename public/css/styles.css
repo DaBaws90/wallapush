@@ -10,12 +10,12 @@ body {
     margin-top: 1rem;
 }
 
-a {
+.black {
     text-decoration: none !important;
     color: black !important;
 }
 
-a:hover {
+.black:hover {
     color: black !important;
     text-decoration: none !important;
 }

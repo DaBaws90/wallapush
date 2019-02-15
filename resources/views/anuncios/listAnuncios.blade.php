@@ -24,7 +24,7 @@
             <div class="grid-container">
                 @forelse ($anuncios as $anuncio)
                 @if($anuncio->vendedor->actived == true)
-                <a href="{{route('detailAnuncio', $anuncio->id )}}">
+                <a class="black" href="{{route('detailAnuncio', $anuncio->id )}}">
                     {{-- <h1>{{ $anuncio->image }}</h1> --}}
                     <div class="card anuncio">
                         <div class="image">

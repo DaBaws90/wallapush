@@ -68,7 +68,7 @@
                         <td>
                             <form action="{{ route('disableUser', ['id' => $user->id]) }}" method="POST">
                                 @csrf
-                                <button onclick="return confirm('Deshabilitar/habilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
+                                <button onclick="return confirm('Deshabilitar/habilitar usuario?')" style="padding: 0;" class="btn btn-light btn-sm" type="submit"><i style="color:#1d68a7;" class="fas fa-sync-alt"></i></button>
                             </form>
                         </td>
                         <td>
@@ -76,7 +76,7 @@
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     <input name="_method" type="hidden" value="DELETE">
-                                    <button onclick="return confirm('Eliminar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
+                                    <button onclick="return confirm('Eliminar usuario?')"  style="padding: 0;" class="btn btn-light btn-sm" type="submit"><i style="color:red;" class="far fa-trash-alt"></i></button>
                                 </form>
                             @endif
                         </td>
