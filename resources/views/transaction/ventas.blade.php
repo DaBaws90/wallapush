@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-        @foreach ($anuncios as $anuncio)
+        @forelse ($anuncios as $anuncio)
 		    <div class="card-body">
                 <div class="grid-container">
                     <div class="card anuncio">
@@ -23,7 +23,11 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+        <div class="alert alert-danger" role="alert">
+            No has realizado ninguna compra.
+        </div>
+        @endforelse
 	</div>
 </div>
 @endsection

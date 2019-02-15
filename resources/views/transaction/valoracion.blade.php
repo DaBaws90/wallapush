@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-        @foreach ($ventas as $venta)
+        @forelse ($ventas as $venta)
         @if ($venta->anuncio->count())
 		<div class="col-11" style="margin: 0 auto;">
 			<div class="card">
@@ -49,7 +49,11 @@
 			</div>
         </div>
         @endif
-        @endforeach
+		@empty
+		<div class="alert alert-danger" role="alert">
+			No has realizado ninguna compra aun, no puedes valorar nada.
+		</div>
+		@endforelse
 	</div>
 </div>
 @endsection
