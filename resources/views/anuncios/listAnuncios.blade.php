@@ -23,7 +23,8 @@
         <div class="card-body" style="background-color: #b0b4ba;">
             <div class="grid-container">
                 @forelse ($anuncios as $anuncio)
-                <a href="/anuncios/details/{{ $anuncio->id }}">
+                @if($anuncio->vendedor->actived == true)
+                <a class="black" href="{{route('detailAnuncio', $anuncio->id )}}">
                     {{-- <h1>{{ $anuncio->image }}</h1> --}}
                     <div class="card anuncio">
                         <div class="image">
@@ -50,6 +51,7 @@
                         </div>
                     </div>
                 </a>
+                @endif
                 @empty
                 <div class="alert alert-danger" role="alert">
                     No hay anuncios disponibles

@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     @yield('links')
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
@@ -56,13 +57,36 @@
                                 <a class="dropdown-item" href="{{ route('categorias') }}">Añadir categoría</a>
                                 @endif
                                 @endif
-                                
+
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Categorias
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (\App\categoria::orderBy('nombre')->get() as $categoria)
+                            <a class="dropdown-item categorias-list" href="{{ route('listPorCategoria', $categoria->id )}}">{{ $categoria->nombre }}</a>
+                                @endforeach
+                                {{-- @if(Auth::check())
+                                <a class="dropdown-item" href="{{ route('addAnuncio') }}">Añadir</a>
+                                @endif
+                                <a class="dropdown-item" href="{{ route('listAnuncios') }}">Listado</a>
+                                @if(Auth::check())
+                                @if (Auth::user()->role == 'admin')
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('vendidos') }}">Productos vendidos</a>
+                                <a class="dropdown-item" href="{{ route('categorias') }}">Añadir categoría</a>
+                                @endif
+                                @endif --}}
+
                             </div>
                         </li>
                         @if(Auth::check())
-                            @if(auth()->user()->role == 'admin')
-                            <li><a class="nav-item nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a></li>
-                            @endif
+                        @if(auth()->user()->role == 'admin')
+                        <li><a class="nav-item nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a></li>
+                        @endif
                         @endif
                     </ul>
 
@@ -93,6 +117,7 @@
                                     <a class="nav-link" href="{{ route('ventas') }}">Ventas realizadas</a>
                                 @endif
                                 <hr>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -110,14 +135,14 @@
         </nav>
 
         @yield('content')
-        <footer class="my-5 pt-5 text-muted text-center text-small">
+        <!-- <footer class="text-muted text-center text-small">
             <p class="mb-1">&copy; 2018-2019 Wallapush</p>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#">Privacy</a></li>
                 <li class="list-inline-item"><a href="#">Terms</a></li>
                 <li class="list-inline-item"><a href="#">Support</a></li>
             </ul>
-        </footer>
+        </footer> -->
     </div>
 </body>
 

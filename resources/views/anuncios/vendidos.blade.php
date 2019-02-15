@@ -18,15 +18,15 @@
         Filtrar por categoría y fecha
     </button>
     <a href="{{ route('vendidos') }}" class="btn btn-primary" style="margin-bottom: 10px; color: #fff !important; float:right;">
-            Volver al listado
+        Volver al listado
     </a>
-    
+
     <!-- Modal categoría y fecha-->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <form action="{{ route('filtroFechas') }}" method="POST">
+                <form action="{{ route('filtroFechas') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Filtrado</h5>
@@ -37,7 +37,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="categoria">Categoría</label>
-                            <select id="categoria" class="form-control" name="categoria" value="{{ old('categoria') }}" required>
+                            <select id="categoria" class="form-control" name="categoria" value="{{ old('categoria') }}"
+                                required>
                                 @foreach ($categorias as $categoria)
                                 <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                                 @endforeach
@@ -45,11 +46,13 @@
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <label for="fecha_inicio">Fecha inicio</label>
-                        <input type="date" class="form-control" name="fecha_inicio" value="{{ old('fecha_inicio') }}" required>
+                            <input type="date" class="form-control" name="fecha_inicio" value="{{ old('fecha_inicio') }}"
+                                required>
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <label for="fecha_fin">Fecha fin</label>
-                            <input id="fecha-fin" type="date" class="form-control" name="fecha_fin" value="{{ old('fecha_fin') }}" required>
+                            <input id="fecha-fin" type="date" class="form-control" name="fecha_fin" value="{{ old('fecha_fin') }}"
+                                required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -67,7 +70,7 @@
         <div class="card-body" style="background-color: #b0b4ba;">
             <div class="grid-container">
                 @forelse ($anuncios as $anuncio)
-                <a href="/anuncios/details/{{ $anuncio->id }}">
+                <a href="{{route('detailAnuncio', $anuncio->id )}}">
                     <div class="card anuncio">
                         <div class="image">
                             @if($anuncio->image())
@@ -86,7 +89,7 @@
                             <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Localidad: {{
                                 $anuncio->vendedor->localidad }}</p>
                             <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Fecha: {{
-                                    $anuncio->created_at }}</p>
+                                $anuncio->created_at }}</p>
                             <div class="dropdown-divider"></div>
                             <p class="card-text" style="font-weight: bold; font-size: 1.2em;">Vendedor: {{
                                 $anuncio->vendedor->name }}</p>
@@ -106,7 +109,8 @@
                 </div>
                 @endforelse
             </div>
-            {{-- <a href="{{ route('pdfFechas', ['id' => $categoria, 'inicio' => $fecha_inicio, 'fin' => $fecha_fin]) }}" class="btn btn-info pull-right" style="margin-top: 20px;"> {{ __("Descargar PDF") }} </a> --}}
+            {{-- <a href="{{ route('pdfFechas', ['id' => $categoria, 'inicio' => $fecha_inicio, 'fin' => $fecha_fin]) }}"
+                class="btn btn-info pull-right" style="margin-top: 20px;"> {{ __("Descargar PDF") }} </a> --}}
         </div>
     </div>
     @if($anuncios->count())

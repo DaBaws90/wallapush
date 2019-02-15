@@ -10,7 +10,7 @@ $factory->define(App\anuncio::class, function (Faker $faker) {
         'nuevo' => true,
         'descripcion' => $faker->text(500, 1000),
         'id_vendedor' => \App\User::all()->random()->id,
-        'vendido' => rand(0, 1),
+        'vendido' => false,
         'created_at' => $faker->dateTimeThisYear('now'),
     ];
 });

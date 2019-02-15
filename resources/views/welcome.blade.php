@@ -110,14 +110,12 @@
                 <div class="links">
                     @if(Auth::check())
                         @if(auth()->user()->role == 'admin')
-                            <a href="{{ route('users.index') }}">Usuarios</a>
+                            <a href="{{ route('users.index') }}">Ir a gestionar registros</a>
+                        @else
+                            <a href="{{ route('listAnuncios') }}">Encuentra el producto que estás buscando!</a>
                         @endif
                     @endif
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    
                 </div>
             </div>
         </div>

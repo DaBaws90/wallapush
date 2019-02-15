@@ -17,6 +17,9 @@
             <div class="mb-3">
                 <a href="{{ route('orderBySales') }}" class="btn btn-outline-primary btn-block">Ordenar por ventas</a>
             </div>
+            <div class="mb-3">
+                    <a href="{{ route('orderByValoration') }}" class="btn btn-outline-primary btn-block">Ordenar por valoraciones</a>
+                </div>
             @if($errors->any())
                 @foreach($errors->all() as $error)
                 <div class="alert alert-danger alert-dismissible fade show">
@@ -27,16 +30,16 @@
                 </div>
                 @endforeach
             @endif
-            @if(session('message')) 
-            <div class="alert alert-{{ session('message')[0] }} alert-dismissible fade show"> 
+            @if(session('message'))
+            <div class="alert alert-{{ session('message')[0] }} alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                {{ session('message')[1] }} 
-            </div> 
+                {{ session('message')[1] }}
+            </div>
             @endif
             <form action="{{ route('saldo') }}" method="POST" id="myForm">
-            @csrf 
+            @csrf
             <table class="table" id="example">
                 <thead>
                     <tr scope="row">
@@ -54,7 +57,7 @@
                 <tbody>
                 @forelse($users as $user)
                     @if($user->role != "admin")
-                    <tr scope="row" class="pt-2 mt-3">                        
+                    <tr scope="row" class="pt-2 mt-3">
                         <td><input type="checkbox" class="form-control{{ $errors->has('id_list') ? ' is-invalid' : '' }}" name="id_list[]" value="{{ $user->id }}"></td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->localidad != null ? $user->localidad : '(No data)' }}</td>
@@ -65,15 +68,17 @@
                         <td>
                             <form action="{{ route('disableUser', ['id' => $user->id]) }}" method="POST">
                                 @csrf
-                                <button onclick="return confirm('Deshabilitar/habilitar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="fas fa-times"></i></button>
+                                <button onclick="return confirm('Deshabilitar/habilitar usuario?')" style="padding: 0;" class="btn btn-light btn-sm" type="submit"><i style="color:#1d68a7;" class="fas fa-sync-alt"></i></button>
                             </form>
                         </td>
                         <td>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                @csrf
-                                <input name="_method" type="hidden" value="DELETE">
-                                <button onclick="return confirm('Eliminar usuario?')"  class="btn btn-danger btn-sm" type="submit"><i class="far fa-trash-alt"></i></button>
-                            </form>
+                            @if($user->sold->count() == 0 && $user->transacciones->count() == 0)
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <button onclick="return confirm('Eliminar usuario?')"  style="padding: 0;" class="btn btn-light btn-sm" type="submit"><i style="color:red;" class="far fa-trash-alt"></i></button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @endif

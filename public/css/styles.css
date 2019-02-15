@@ -10,12 +10,12 @@ body {
     margin-top: 1rem;
 }
 
-a {
+.black {
     text-decoration: none !important;
     color: black !important;
 }
 
-a:hover {
+.black:hover {
     color: black !important;
     text-decoration: none !important;
 }
@@ -27,9 +27,12 @@ a:hover {
     padding: 0;
 }
 
+.categoriaList {
+    float: left !important;
+}
+
 .form-group {
     padding: 0 20px 0 20px;
-    margin: 0;
 }
 
 .form:first-child {
