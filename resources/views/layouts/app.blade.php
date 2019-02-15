@@ -67,7 +67,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach (\App\categoria::orderBy('nombre')->get() as $categoria)
-                            <a class="dropdown-item categorias-list" href="/anuncios/listCategoria/{{ $categoria->id }}">{{ $categoria->nombre }}</a>
+                            <a class="dropdown-item categorias-list" href="{{ route('listPorCategoria', $categoria->id )}}">{{ $categoria->nombre }}</a>
                                 @endforeach
                                 {{-- @if(Auth::check())
                                 <a class="dropdown-item" href="{{ route('addAnuncio') }}">Añadir</a>
@@ -112,11 +112,11 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if(auth()->user()->role != 'admin')
                                 <a class="nav-link" href="{{ route('profile') }}">Perfil</a>
-                                @endif
                                 <a class="nav-link" href="{{ route('valorarcompra') }}">Valorar compras</a>
                                 <a class="nav-link" href="{{ route('compras') }}">Compras realizadas</a>
                                 <a class="nav-link" href="{{ route('ventas') }}">Ventas realizadas</a>
                                 <hr>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
