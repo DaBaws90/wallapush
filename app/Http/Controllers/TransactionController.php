@@ -80,7 +80,7 @@ class TransactionController extends Controller
 
     public function ventas(){
         $user = Auth::user();
-        $anuncios = anuncio::where('id_vendedor', $user->id)->get();
+        $anuncios = anuncio::where('id_vendedor', $user->id)->where('vendido', 1)->get();
         return view('transaction.ventas', compact('anuncios'));
     }
 }

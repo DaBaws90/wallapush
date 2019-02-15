@@ -51,7 +51,7 @@
         @endif
 		@empty
 		<div class="alert alert-danger" role="alert">
-			No has realizado ninguna compra aun, no puedes valorar nada.
+			No tienes valoraciones pendientes.
 		</div>
 		@endforelse
 	</div>

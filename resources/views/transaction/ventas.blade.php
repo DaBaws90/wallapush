@@ -25,7 +25,7 @@
             </div>
         @empty
         <div class="alert alert-danger" role="alert">
-            No has realizado ninguna compra.
+            No has realizado ninguna venta.
         </div>
         @endforelse
 	</div>

@@ -117,7 +117,6 @@
                                     <a class="nav-link" href="{{ route('ventas') }}">Ventas realizadas</a>
                                 @endif
                                 <hr>
-                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
