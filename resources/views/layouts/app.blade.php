@@ -67,7 +67,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach (\App\categoria::orderBy('nombre')->get() as $categoria)
-                            <a class="dropdown-item categorias-list" href="/anuncios/listCategoria/{{ $categoria->id }}">{{ $categoria->nombre }}</a>
+                            <a class="dropdown-item categorias-list" href="{{ route('listPorCategoria', $categoria->id )}}">{{ $categoria->nombre }}</a>
                                 @endforeach
                                 {{-- @if(Auth::check())
                                 <a class="dropdown-item" href="{{ route('addAnuncio') }}">Añadir</a>
